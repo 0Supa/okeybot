@@ -1,5 +1,5 @@
 {
-  "name": "okey_bot",
+  "name": "okeybot",
   "version": "0.0.2",
   "main": "index.js",
   "dependencies": {
@@ -39,7 +39,7 @@
   },
   "author": "Supa",
   "license": "ISC",
-  "description": "The bot provides a variety of fun and utility commands",
+  "description": "Twitch chat bot that provides a variety of fun and utility commands",
   "devDependencies": {
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -47,5 +47,13 @@
   },
   "directories": {
     "lib": "lib"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0Supa/okeybot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/0Supa/okeybot/issues"
+  },
+  "homepage": "https://github.com/0Supa/okeybot#readme"
 }
