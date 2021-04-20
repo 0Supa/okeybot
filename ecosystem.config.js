@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: "okey_bot",
+    name: "okeybot",
     script: "index.js"
   }]
 }
