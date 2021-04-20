@@ -79,7 +79,7 @@ router.get("/cmdlist", (req, res) => {
     res.send(utils.helpJson)
 })
 
-router.get("/stats", (req, res) => {
+router.get("/stats", async (req, res) => {
     const data = await utils.query(`SELECT COUNT(id) As query FROM channels
     UNION SELECT issued_commands FROM data`)
     const date = Math.abs(new Date() - utils.connectedAt) / 1000
