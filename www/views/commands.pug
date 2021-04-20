@@ -1,0 +1,35 @@
+extends main
+
+block content
+    title Commands - Okey bot
+    script
+        include js/commandsTable.js
+    div(class="container")
+        div(class="content")
+            table(id="table" class="display")
+                thead
+                    tr
+                        th Name
+                        th Aliases
+                        th Description
+                        th Access
+                        th Cooldown
+                        th
+                            img(src="https://cdn.frankerfacez.com/emoticon/218530/1")
+                tbody
+                    for command in commands
+                        tr
+                            td #{command.name}
+                            if command.aliases
+                                td #{command.aliases}
+                            else
+                                td
+                            td #{command.description}
+                            if command.accessBadge
+                                td(style="text-align:center")
+                                    img(src=command.accessBadge class='accessBadge')
+                            else
+                                td
+                            td #{command.cooldown} seconds
+                            td
+                                a(href="/commands/" + command.nameEncoded) info📄

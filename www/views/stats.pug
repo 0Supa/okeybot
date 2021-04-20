@@ -1,0 +1,25 @@
+extends main
+block content
+    title Stats - Okey bot
+    div(class="center")
+        img(src="https://cdn.betterttv.net/emote/568d840001ea6722348ab018/1x")
+        p Stats
+        table
+            tr 
+                td Uptime 
+                td #{uptime}
+            tr 
+                td RAM Usage 
+                td #{ram}mb
+            tr
+                td Available commands
+                td #{commands}
+            tr
+                td Channels count where the bot is active in
+                td #{channelCount}
+            tr 
+                td Issued commands since last bot restart
+                td #{issuedCommands}
+            tr 
+                td All ever issued commands
+                td #{ALLissuedCommands}

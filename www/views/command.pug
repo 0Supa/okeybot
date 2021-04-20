@@ -1,0 +1,33 @@
+extends main
+block content
+    title #{command.name} - Command Info - Okey bot
+    div(class="center")
+        table
+            tr 
+                td Name 
+                td #{command.name}
+            tr 
+                td Aliases 
+                if command.aliases
+                    td #{command.aliases}
+                else 
+                    td N/A
+            tr
+                td Description
+                td #{command.description}
+            tr
+                td Access
+                if command.access
+                    td #{command.access}
+                else
+                    td everyone
+            tr 
+                td Cooldown
+                td #{command.cooldown} seconds
+            tr
+                td Preview
+                if command.preview
+                    td
+                        img(src=command.preview class='preview')
+                else
+                    td N/A

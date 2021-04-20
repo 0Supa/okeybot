@@ -1,0 +1,29 @@
+extends main
+block content
+    title Channels - Okey bot
+    script
+        include js/channelsTable.js
+    div(class="center")
+        table(id="table")
+            thead
+                tr
+                    th ID
+                    th Channel
+                    th Prefix
+                    th Mode
+            tbody
+                for channel in channels
+                    - var channelState = channelStates[channel.login]
+                        tr
+                            td
+                                a(href="/channels/" + channel.id) #{channel.id}
+                            td #{channel.login}
+                            td #{channel.prefix}
+                            unless channelState
+                                td (none)
+                            else if channelState && channelState.badges.map(x => x.name).includes('vip')
+                                td VIP 
+                            else if channelState && channelState.isMod
+                                td Moderator
+                            else
+                                td Write

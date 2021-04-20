@@ -1,0 +1,27 @@
+extends main
+block content
+    title #{channel.login} - Channel Info - Okey bot
+    div(class="center")
+        table(id="channel")
+            tr 
+                td ID 
+                td #{channel.id}
+            tr 
+                td Twitch ID 
+                td #{channel.platform_id}
+            tr
+                td Login
+                td
+                    a(href="https://www.twitch.tv/" + channel.login target="_blank") #{channel.login}
+            tr
+                td Prefix
+                td #{channel.prefix}
+            tr 
+                td Added on 
+                td #{parsedAdded}
+            tr
+                td Most active chatter 
+                if mostActive
+                    td #{mostActive.user_login} with #{mostActive.message_count} messages
+                else 
+                    td (none)
