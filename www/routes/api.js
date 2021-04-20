@@ -86,7 +86,7 @@ router.get("/stats", async (req, res) => {
     res.send({ channelCount: data[0].query, uptime: utils.parseSec(date), issuedCommands: { sinceRestart: utils.issuedCommands, all: data[1].query }, commands: utils.commands, MBram: Math.round(process.memoryUsage().rss / 1024 / 1024) })
 })
 
-router.get("/channels", (req, res) => {
+router.get("/channels", async (req, res) => {
     const channels = await utils.query(`SELECT login FROM channels`)
     res.send(channels.map(x => x.login))
 })
