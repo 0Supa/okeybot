@@ -71,8 +71,24 @@ router.post("/webhooks/callback", async (req, res) => {
     res.status(200).end();
 });
 
+router.get("/", (req, res) => {
+    res.render('api');
+})
+
 router.get("/cmdlist", (req, res) => {
     res.send(utils.helpJson)
+})
+
+router.get("/stats", (req, res) => {
+    const data = await utils.query(`SELECT COUNT(id) As query FROM channels
+    UNION SELECT issued_commands FROM data`)
+    const date = Math.abs(new Date() - utils.connectedAt) / 1000
+    res.send({ channelCount: data[0].query, uptime: utils.parseSec(date), issuedCommands: { sinceRestart: utils.issuedCommands, all: data[1].query }, commands: utils.commands, MBram: Math.round(process.memoryUsage().rss / 1024 / 1024) })
+})
+
+router.get("/channels", (req, res) => {
+    const channels = await utils.query(`SELECT login FROM channels`)
+    res.send(channels.map(x => x.login))
 })
 
 router.get("/fivemplayers/:serverID", async (req, res) => {
