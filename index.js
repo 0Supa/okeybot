@@ -199,8 +199,8 @@ async function listenEvents() {
         for (let event of events) {
             requestBody['type'] = event
             const { body } = await utils.helix.post('eventsub/subscriptions', { json: requestBody })
-            if (!body.error) utils.logger.info(`created listener ${requestBody.type} for ${channel}`)
-            else if (body?.error !== 'Conflict') utils.logger.error(`failed listening ${requestBody.type} for ${channel} (${body.error}): ${body.message}`)
+            if (!body.error) utils.logger.info(`created listener ${requestBody.type} for ${channel.login}`)
+            else if (body?.error !== 'Conflict') utils.logger.error(`failed listening ${requestBody.type} for ${channel.login} (${body.error}): ${body.message}`)
         }
     }
 }
