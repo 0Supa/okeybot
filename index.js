@@ -1,4 +1,5 @@
 let utils = { ...require('./lib/utils/utils.js') };
+let { supinicAPIping } = require('./lib/utils/loops.js');
 module.exports.alert = alert;
 module.exports.utils = utils;
 require('dotenv').config()
@@ -71,7 +72,8 @@ client.on("ready", async () => {
     client.joinAll(channels)
     listenEvents()
     utils.connectedAt = Date.now()
-    //client.whisper('supa8', 'Connected to chat')
+    supinicAPIping()
+    setInterval(supinicAPIping, 600000)
     utils.logger.info("Connected to chat");
 });
 
