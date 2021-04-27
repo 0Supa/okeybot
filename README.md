@@ -5,5 +5,5 @@
 * `git clone https://github.com/0Supa/okeybot.git`
 * `cd okeybot`
 * `npm install`
-* add your credentials into `.env_template` and rename it to `.env`
+* make a copy of `.env_template` named `.env` and add your credentials into it
 #### *the bot is not intended to run on other machines*
