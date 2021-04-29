@@ -13,7 +13,7 @@ block content
                     th Mode
             tbody
                 for channel in channels
-                    - var channelState = channelStates[channel.login]
+                    - const channelState = channelStates[channel.login]
                         tr
                             td
                                 a(href="/channels/" + channel.id) #{channel.id}
