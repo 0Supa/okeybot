@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 
 utils.commands = client.commands.size
 
-utils.generateHelp = function x() {
+utils.generateHelp = function () {
     client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "everyone", "fill", "%", "ping", "prefix", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "subemotes", "uid", "steam", "cat", "dog", "channels", "geoip", "query", "botinfo", "firstmsg", "randmsg", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest"]
     utils.helpJson = []
     for (let cmdName of client.knownCommands) {
@@ -100,27 +100,33 @@ client.on("PRIVMSG", async (msg) => {
             'badges': msg.badges.map(x => x.name),
             'perms': { mod: msg.isMod, broadcaster: msg.badges.hasBroadcaster, vip: msg.badges.hasVIP }
         },
+        'channel': {
+            'id': msg.channelID,
+            'login': msg.channelName,
+            'query': channelData
+        },
         'isAction': msg.isAction,
-        'channel': channelData,
-        'channelName': msg.channelName,
-        'channelID': msg.channelID,
         'raw': msg.rawSource,
         'text': msg.messageText,
 
         reply: async function (message) {
-            message = `${this.user.name}, ` + message
-            await client.say(this.channelName, message.length > 490 ? message.substring(0, 490) + ' (...)' : message)
+            message = `${this.user.name}, ${message}`
+            await client.say(this.channelName, fitText(message, 490))
         },
         say: async function (message) {
-            await client.say(this.channelName, message.length > 490 ? message.substring(0, 490) + ' (...)' : message)
+            await client.say(this.channelName, fitText(message, 490))
         },
         me: async function (message) {
-            await client.me(this.channelName, message.length > 490 ? message.substring(0, 490) + ' (...)' : message)
+            await client.me(this.channelName, fitText(message, 490))
         }
     }
 
     handle(msgData)
 })
+
+function fitText(text, maxLength) {
+    return text.length > maxLength ? `${text.substring(0, maxLength)} (...)` : text
+}
 
 client.on("JOIN", async (o) => {
     logger.info(`Joined ${o.channelName}`)
