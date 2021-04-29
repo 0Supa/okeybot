@@ -1,7 +1,7 @@
 let utils = { ...require('./lib/utils/utils.js') };
 const { supinicAPIping } = require('./lib/utils/loops.js');
 const { helix } = require('./lib/utils/twitchapi.js')
-const { logger } = reqire('./lib/utils/logger.js')
+const { logger } = require('./lib/utils/logger.js')
 module.exports.alert = alert;
 module.exports.utils = utils;
 require('dotenv').config()
