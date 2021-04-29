@@ -111,13 +111,13 @@ client.on("PRIVMSG", async (msg) => {
 
         reply: async function (message) {
             message = `${this.user.name}, ${message}`
-            await client.say(this.channelName, fitText(message, 490))
+            await client.say(this.channel.login, fitText(message, 490))
         },
         say: async function (message) {
-            await client.say(this.channelName, fitText(message, 490))
+            await client.say(this.channel.login, fitText(message, 490))
         },
         me: async function (message) {
-            await client.me(this.channelName, fitText(message, 490))
+            await client.me(this.channel.login, fitText(message, 490))
         }
     }
 
