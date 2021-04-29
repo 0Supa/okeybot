@@ -1,5 +1,7 @@
 let utils = { ...require('./lib/utils/utils.js') };
-let { supinicAPIping } = require('./lib/utils/loops.js');
+const { supinicAPIping } = require('./lib/utils/loops.js');
+const { helix } = require('./lib/utils/twitchapi.js')
+const { logger } = reqire('./lib/utils/logger.js')
 module.exports.alert = alert;
 module.exports.utils = utils;
 require('dotenv').config()
@@ -74,12 +76,12 @@ client.on("ready", async () => {
     utils.connectedAt = Date.now()
     supinicAPIping()
     setInterval(supinicAPIping, 600000)
-    utils.logger.info("Connected to chat");
+    logger.info("Connected to chat");
 });
 
 client.on("close", (error) => {
-    if (error) return utils.logger.error("Client closed due to error", error);
-    utils.logger.error('Client closed without an error')
+    if (error) return logger.error("Client closed due to error", error);
+    logger.error('Client closed without an error')
 });
 
 utils.issuedCommands = 0
@@ -121,13 +123,13 @@ client.on("PRIVMSG", async (msg) => {
 })
 
 client.on("JOIN", async (o) => {
-    utils.logger.info(`Joined ${o.channelName}`)
+    logger.info(`Joined ${o.channelName}`)
 });
 
 client.on("PART", async (o) => {
     const data = (await utils.query(`SELECT COUNT(id) AS entries FROM channels WHERE login=?`, [o.channelName]))[0]
     if (data.entries) await utils.query(`UPDATE channels SET parted=? WHERE login=?`, [true, o.channelName])
-    utils.logger.info(`Parted ${o.channelName}`)
+    logger.info(`Parted ${o.channelName}`)
 });
 
 async function alert(channel, event, data) {
@@ -200,9 +202,9 @@ async function listenEvents() {
 
         for (let event of events) {
             requestBody['type'] = event
-            const { body } = await utils.helix.post('eventsub/subscriptions', { json: requestBody })
-            if (!body.error) utils.logger.info(`created listener ${requestBody.type} for ${channel.login}`)
-            else if (body?.error !== 'Conflict') utils.logger.error(`failed listening ${requestBody.type} for ${channel.login} (${body.error}): ${body.message}`)
+            const { body } = await helix.post('eventsub/subscriptions', { json: requestBody })
+            if (!body.error) logger.info(`created listener ${requestBody.type} for ${channel.login}`)
+            else if (body?.error !== 'Conflict') logger.error(`failed listening ${requestBody.type} for ${channel.login} (${body.error}): ${body.message}`)
         }
     }
 }

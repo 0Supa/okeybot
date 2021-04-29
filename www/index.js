@@ -1,4 +1,4 @@
-const { logger } = require('../lib/utils/utils.js')
+const { logger } = require('../lib/utils/logger.js')
 const express = require('express')
 const app = express()
 const website = require("./routes/website");
