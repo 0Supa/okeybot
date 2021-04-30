@@ -151,7 +151,7 @@ async function alert(channel, event, data) {
     const streamer = await utils.query(`SELECT online_format, offline_format, title_format, category_format, login FROM notify_data WHERE login=?`, [channel])
     if (!streamer.length) return;
 
-    let message = null
+    let message;
     const webhookMessage = `<a:FeelsBingMan:813155606588030978> <@&824358099652837386> <a:FeelsBingMan:813155606588030978>\n**${channel}** went live <a:chimiLive:816200094571167744>\n<http://twitch.tv/${channel}>`
 
     switch (event) {
