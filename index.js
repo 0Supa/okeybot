@@ -95,7 +95,7 @@ client.on("PRIVMSG", async (msg) => {
         channelData = JSON.parse(cacheData)
     } else {
         channelData = (await utils.query(`SELECT prefix, added FROM channels WHERE login=?`, [msg.channelName]))[0]
-        await utils.cache.setex(msg.channelName, 260000, JSON.stringify({ prefix: channelData.prefix, added: channelData.added }))
+        await utils.cache.set(msg.channelName, JSON.stringify({ prefix: channelData.prefix, added: channelData.added }))
     }
 
     const msgData = {
