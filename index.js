@@ -13,7 +13,8 @@ const { handle } = require('./lib/handler.js')
 const fs = require('fs')
 const collection = require('@discordjs/collection')
 
-const got = require('got')
+const got = require('got');
+const { cachedDataVersionTag } = require('v8');
 
 client.commands = new collection();
 const commandFiles = fs.readdirSync('./lib/commands').filter(file => file.endsWith('.js'));
@@ -87,7 +88,15 @@ client.on("close", (error) => {
 utils.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
-    const channelData = (await utils.query(`SELECT * FROM channels WHERE login=?`, [msg.channelName]))[0]
+    let channelData;
+    const cacheData = await utils.cache.get(msg.channelName)
+    if (cacheData) {
+        channelData = JSON.parse(cacheData)
+    } else {
+        logger.info('getting sql data..')
+        channelData = (await utils.query(`SELECT prefix, added FROM channels WHERE login=?`, [msg.channelName]))[0]
+        await utils.cache.setex(msg.channelName, 260000, JSON.stringify({ prefix: channelData.prefix, added: channelData.added }))
+    }
 
     const msgData = {
         'user': {
