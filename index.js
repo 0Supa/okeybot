@@ -90,6 +90,7 @@ utils.issuedCommands = 0
 client.on("PRIVMSG", async (msg) => {
     let channelData;
     const cacheData = await utils.cache.get(msg.channelName)
+
     if (cacheData) {
         channelData = JSON.parse(cacheData)
     } else {
