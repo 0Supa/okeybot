@@ -7,13 +7,11 @@ module.exports.utils = utils;
 require('dotenv').config()
 require('./www')
 
-const { client, pool } = require('./lib/utils/connections.js')
+const { client } = require('./lib/utils/connections.js')
 const { handle } = require('./lib/handler.js')
 
 const fs = require('fs')
 const collection = require('@discordjs/collection')
-
-const got = require('got');
 
 client.commands = new collection();
 const commandFiles = fs.readdirSync('./lib/commands').filter(file => file.endsWith('.js'));
@@ -52,22 +50,6 @@ utils.generateHelp = function () {
 
     fs.writeFileSync("./data/help.json", JSON.stringify(utils.helpJson), { encoding: 'utf8', flag: 'w' })
 };
-
-(async () => {
-    utils.db = await pool.getConnection()
-})();
-
-utils.query = function (query, data = []) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const res = await utils.db.query(query, data)
-            resolve(res)
-        } catch (err) {
-            reject(err)
-            console.error(err)
-        }
-    })
-}
 
 utils.generateHelp()
 client.connect();
@@ -122,22 +104,18 @@ client.on("PRIVMSG", async (msg) => {
 
         reply: async function (message) {
             message = `${this.user.name}, ${message}`
-            await client.say(this.channel.login, fitText(message, 490))
+            await client.say(this.channel.login, utils.fitText(message, 490))
         },
         say: async function (message) {
-            await client.say(this.channel.login, fitText(message, 490))
+            await client.say(this.channel.login, utils.fitText(message, 490))
         },
         me: async function (message) {
-            await client.me(this.channel.login, fitText(message, 490))
+            await client.me(this.channel.login, utils.fitText(message, 490))
         }
     }
 
     handle(msgData)
 })
-
-function fitText(text, maxLength) {
-    return text.length > maxLength ? `${text.substring(0, maxLength)} (...)` : text
-}
 
 client.on("JOIN", async (o) => {
     logger.info(`Joined ${o.channelName}`)
@@ -186,16 +164,7 @@ async function alert(channel, event, data) {
         await client.say(channel, message + users)
     }
 
-    if (event === 'online') hook(webhookMessage)
-}
-
-async function hook(message) {
-    await got.post(process.env.webhook_url, {
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ "content": message })
-    });
+    if (event === 'online') utils.hook(webhookMessage)
 }
 
 async function listenEvents() {
