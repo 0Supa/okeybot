@@ -1,7 +1,7 @@
 const fs = require('fs')
 const express = require("express");
 const router = express.Router();
-const { utils } = require("../../lib/utils/utils.js");
+const utils = require("../../lib/utils/utils.js");
 const { client } = require("../../lib/utils/connections.js");
 
 router.get('/', function (req, res) {
