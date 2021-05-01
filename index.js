@@ -14,7 +14,6 @@ const fs = require('fs')
 const collection = require('@discordjs/collection')
 
 const got = require('got');
-const { cachedDataVersionTag } = require('v8');
 
 client.commands = new collection();
 const commandFiles = fs.readdirSync('./lib/commands').filter(file => file.endsWith('.js'));
@@ -25,6 +24,7 @@ for (const file of commandFiles) {
 }
 
 utils.commands = client.commands.size
+utils.channelStates = client.userStateTracker.channelStates
 
 utils.generateHelp = function () {
     client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "everyone", "fill", "%", "ping", "prefix", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "subemotes", "uid", "steam", "cat", "dog", "channels", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest"]
@@ -51,30 +51,32 @@ utils.generateHelp = function () {
     }
 
     fs.writeFileSync("./data/help.json", JSON.stringify(utils.helpJson), { encoding: 'utf8', flag: 'w' })
+};
+
+(async () => {
+    utils.db = await pool.getConnection()
+})();
+
+utils.query = function (query, data = []) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await utils.db.query(query, data)
+            resolve(res)
+        } catch (err) {
+            reject(err)
+            console.error(err)
+        }
+    })
 }
 
 utils.generateHelp()
 client.connect();
 
 client.on("ready", async () => {
-    utils.channelStates = client.userStateTracker.channelStates
-    utils.db = await pool.getConnection()
-    utils.query = function (query, data = []) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await utils.db.query(query, data)
-                resolve(res)
-            } catch (err) {
-                reject(err)
-                console.error(err)
-            }
-        })
-    }
-    const channelsQuery = await utils.query('SELECT login FROM channels WHERE parted=?', [false])
-    const channels = channelsQuery.map(x => x.login)
+    utils.connectedAt = Date.now()
+    const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(x => x.login)
     client.joinAll(channels)
     listenEvents()
-    utils.connectedAt = Date.now()
     supinicAPIping()
     setInterval(supinicAPIping, 600000)
     logger.info("Connected to chat");
