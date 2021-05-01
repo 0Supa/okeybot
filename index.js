@@ -93,6 +93,7 @@ client.on("PRIVMSG", async (msg) => {
         'isAction': msg.isAction,
         'raw': msg.rawSource,
         'text': msg.messageText,
+        'timestamp': msg.serverTimestampRaw,
 
         reply: async function (message) {
             message = `${this.user.name}, ${message}`
