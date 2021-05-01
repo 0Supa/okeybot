@@ -50,6 +50,7 @@ client.on("ready", async () => {
     client.connectedAt = Date.now()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(x => x.login)
     client.joinAll(channels)
+    listenEvents()
     supinicAPIping()
     setInterval(supinicAPIping, 600000)
     logger.info("Connected to chat");
@@ -118,7 +119,7 @@ client.on("PART", async (o) => {
     logger.info(`Parted ${o.channelName}`)
 });
 
-(async () => {
+async function listenEvents() {
     const events = ['stream.online', 'stream.offline', 'channel.update'];
 
     const channels = await utils.query('SELECT user_id AS id, login FROM notify_data')
@@ -144,4 +145,4 @@ client.on("PART", async (o) => {
             else if (body?.error !== 'Conflict') logger.error(`failed listening ${requestBody.type} for ${channel.login} (${body.error}): ${body.message}`)
         }
     }
-})();
+}
