@@ -1,9 +1,8 @@
-let utils = { ...require('./lib/utils/utils.js') };
+const utils = require('./lib/utils/utils.js');
 const { supinicAPIping } = require('./lib/utils/loops.js');
 const { helix } = require('./lib/utils/twitchapi.js')
 const { logger } = require('./lib/utils/logger.js')
-module.exports.alert = alert;
-module.exports.utils = utils;
+
 require('dotenv').config()
 require('./www')
 
@@ -21,44 +20,36 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command)
 }
 
-utils.commands = client.commands.size
-utils.channelStates = client.userStateTracker.channelStates
+client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "everyone", "fill", "%", "ping", "prefix", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "subemotes", "uid", "steam", "cat", "dog", "channels", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest"]
+let cmdsJSON = []
+for (let cmdName of client.knownCommands) {
+    let badgeURL;
+    const cmd = client.commands.get(cmdName)
 
-utils.generateHelp = function () {
-    client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "everyone", "fill", "%", "ping", "prefix", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "subemotes", "uid", "steam", "cat", "dog", "channels", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest"]
-    utils.helpJson = []
-    for (let cmdName of client.knownCommands) {
-        let badgeURL;
-        const cmd = client.commands.get(cmdName)
-
-        switch (cmd.access) {
-            case "mod": badgeURL = 'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'; break;
-            case "vip": badgeURL = 'https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2'; break;
-        }
-
-        utils.helpJson[utils.helpJson.length] = {
-            name: cmd.name,
-            nameEncoded: encodeURIComponent(cmd.name),
-            aliases: cmd.aliases?.join(', '),
-            description: cmd.description,
-            access: cmd.access,
-            accessBadge: badgeURL,
-            cooldown: cmd.cooldown,
-            preview: cmd.preview
-        }
+    switch (cmd.access) {
+        case "mod": badgeURL = 'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'; break;
+        case "vip": badgeURL = 'https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2'; break;
     }
 
-    fs.writeFileSync("./data/help.json", JSON.stringify(utils.helpJson), { encoding: 'utf8', flag: 'w' })
-};
+    cmdsJSON[cmdsJSON.length] = {
+        name: cmd.name,
+        nameEncoded: encodeURIComponent(cmd.name),
+        aliases: cmd.aliases?.join(', '),
+        description: cmd.description,
+        access: cmd.access,
+        accessBadge: badgeURL,
+        cooldown: cmd.cooldown,
+        preview: cmd.preview
+    }
+}
+fs.writeFileSync("./data/help.json", JSON.stringify(cmdsJSON), { encoding: 'utf8', flag: 'w' })
 
-utils.generateHelp()
 client.connect();
 
 client.on("ready", async () => {
-    utils.connectedAt = Date.now()
+    client.connectedAt = Date.now()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(x => x.login)
     client.joinAll(channels)
-    listenEvents()
     supinicAPIping()
     setInterval(supinicAPIping, 600000)
     logger.info("Connected to chat");
@@ -69,7 +60,7 @@ client.on("close", (error) => {
     logger.error('Client closed without an error')
 });
 
-utils.issuedCommands = 0
+client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
     let channelData;
@@ -127,47 +118,7 @@ client.on("PART", async (o) => {
     logger.info(`Parted ${o.channelName}`)
 });
 
-async function alert(channel, event, data) {
-    const streamer = await utils.query(`SELECT online_format, offline_format, title_format, category_format, login FROM notify_data WHERE login=?`, [channel])
-    if (!streamer.length) return;
-
-    let message;
-    const webhookMessage = `<a:FeelsBingMan:813155606588030978> <@&824358099652837386> <a:FeelsBingMan:813155606588030978>\n**${channel}** went live <a:chimiLive:816200094571167744>\n<http://twitch.tv/${channel}>`
-
-    switch (event) {
-        case "online": message = streamer[0].online_format; break;
-        case "offline": message = streamer[0].offline_format; break;
-        case "title": message = streamer[0].title_format.replace('%DATA%', data || 'N/A'); break;
-        case "category": message = streamer[0].category_format.replace('%DATA%', data || 'N/A'); break;
-        default: return;
-    }
-
-    const userData = await utils.query(`SELECT user_login FROM notify WHERE channel_login=?`, [channel])
-    const users = userData.map(x => x.user_login)
-    const input = (users.length) ? users.join(' ') : "(no users to notify)"
-    const len = 475 - message.length;
-    const curr = len;
-    const prev = 0;
-
-    output = [];
-
-    while (input[curr]) {
-        if (input[curr++] === ' ') {
-            output.push(input.substring(prev, curr));
-            prev = curr;
-            curr += len;
-        }
-    }
-    output.push(input.substr(prev));
-
-    for (const users of output) {
-        await client.say(channel, message + users)
-    }
-
-    if (event === 'online') utils.hook(webhookMessage)
-}
-
-async function listenEvents() {
+(async () => {
     const events = ['stream.online', 'stream.offline', 'channel.update'];
 
     const channels = await utils.query('SELECT user_id AS id, login FROM notify_data')
@@ -193,4 +144,4 @@ async function listenEvents() {
             else if (body?.error !== 'Conflict') logger.error(`failed listening ${requestBody.type} for ${channel.login} (${body.error}): ${body.message}`)
         }
     }
-}
+})();

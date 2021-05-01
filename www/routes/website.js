@@ -1,7 +1,8 @@
 const fs = require('fs')
 const express = require("express");
 const router = express.Router();
-const { utils } = require("../../index.js");
+const { utils } = require("../../lib/utils/utils.js");
+const { client } = require("../../lib/utils/connections.js");
 
 router.get('/', function (req, res) {
     res.render('index')
@@ -21,7 +22,7 @@ router.get('/commands/:name', function (req, res) {
 
 router.get('/channels', async function (req, res) {
     const channels = await utils.query(`SELECT * FROM channels`)
-    res.render('channels', { channels, channelStates: utils.channelStates });
+    res.render('channels', { channels, channelStates: client.userStateTracker.channelStates });
 });
 
 router.get('/channels/:userid', async function (req, res) {
@@ -35,7 +36,7 @@ router.get('/channels/:userid', async function (req, res) {
 router.get('/stats', async function (req, res) {
     const data = await utils.query(`SELECT COUNT(id) As query FROM channels
     UNION SELECT issued_commands FROM data`)
-    const date = Math.abs(new Date() - utils.connectedAt) / 1000
-    res.render('stats', { channelCount: data[0].query, uptime: utils.parseSec(date), issuedCommands: utils.issuedCommands, ALLissuedCommands: data[1].query, commands: utils.commands, ram: Math.round(process.memoryUsage().rss / 1024 / 1024) });
+    const date = Math.abs(new Date() - client.connectedAt) / 1000
+    res.render('stats', { channelCount: data[0].query, uptime: utils.parseSec(date), issuedCommands: client.issuedCommands, ALLissuedCommands: data[1].query, commands: client.commands.size, ram: Math.round(process.memoryUsage().rss / 1024 / 1024) });
 });
 module.exports = router;

@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const crypto = require("crypto");
 const { twitchSigningSecret } = process.env;
-const { utils, alert } = require("../../index.js");
+const utils = require("../../lib/utils/utils.js");
+const { client } = require('../../lib/utils/connections.js')
 const got = require('got')
 
-let invalidCode = false
+let invalidCode;
 
 const verifyTwitchSignature = (req, res, buf, encoding) => {
     const messageId = req.header("Twitch-Eventsub-Message-Id");
@@ -46,23 +47,23 @@ router.post("/webhooks/callback", async (req, res) => {
     switch (subscription.type) {
         case "channel.update": {
             if (data[0].title !== event.title) {
-                alert(event.broadcaster_user_login, 'title', event.title)
+                utils.notify(event.broadcaster_user_login, 'title', event.title)
                 await utils.query(`UPDATE notify_data SET title=? WHERE login=?`, [event.title, event.broadcaster_user_login])
             }
             if (data[0].category !== event.category_name) {
-                alert(event.broadcaster_user_login, 'category', event.category_name)
+                utils.notify(event.broadcaster_user_login, 'category', event.category_name)
                 await utils.query(`UPDATE notify_data SET category=? WHERE login=?`, [event.category_name, event.broadcaster_user_login])
             }
         }; break;
         case "stream.online": {
             if (!data[0].live) {
-                alert(event.broadcaster_user_login, 'online')
+                utils.notify(event.broadcaster_user_login, 'online')
                 await utils.query(`UPDATE notify_data SET live=? WHERE login=?`, [true, event.broadcaster_user_login])
             }
         }; break;
         case "stream.offline": {
             if (data[0].live) {
-                alert(event.broadcaster_user_login, 'offline')
+                utils.notify(event.broadcaster_user_login, 'offline')
                 await utils.query(`UPDATE notify_data SET live=? WHERE login=?`, [false, event.broadcaster_user_login])
             }
         }; break;
@@ -83,7 +84,7 @@ router.get("/stats", async (req, res) => {
     const data = await utils.query(`SELECT COUNT(id) As query FROM channels
     UNION SELECT issued_commands FROM data`)
     const date = Math.abs(new Date() - utils.connectedAt) / 1000
-    res.send({ channelCount: data[0].query, uptime: utils.parseSec(date), issuedCommands: { sinceRestart: utils.issuedCommands, all: data[1].query }, commands: utils.commands, MBram: Math.round(process.memoryUsage().rss / 1024 / 1024) })
+    res.send({ channelCount: data[0].query, uptime: utils.parseSec(date), issuedCommands: { sinceRestart: client.issuedCommands, all: data[1].query }, commands: client.commands.size, MBram: Math.round(process.memoryUsage().rss / 1024 / 1024) })
 })
 
 router.get("/channels", async (req, res) => {
