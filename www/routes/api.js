@@ -5,6 +5,7 @@ const { twitchSigningSecret } = process.env;
 const utils = require("../../lib/utils/utils.js");
 const { client } = require('../../lib/utils/connections.js')
 const got = require('got')
+const fs = require('fs');
 
 let invalidCode;
 
@@ -77,7 +78,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/cmdlist", (req, res) => {
-    res.send(utils.helpJson)
+    res.send(JSON.parse(fs.readFileSync('./data/help.json').toString()))
 })
 
 router.get("/stats", async (req, res) => {
