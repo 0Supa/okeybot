@@ -3,7 +3,6 @@ const router = express.Router();
 const crypto = require("crypto");
 const { twitchSigningSecret } = process.env;
 const utils = require("../../lib/utils/utils.js");
-const { BTTVemote } = require("../../lib/utils/emotes.js");
 const { client } = require('../../lib/utils/connections.js')
 const got = require('got')
 const fs = require('fs');
@@ -68,18 +67,6 @@ router.post("/webhooks/callback", async (req, res) => {
                 utils.notify(event.broadcaster_user_login, 'offline')
                 await utils.query(`UPDATE notify_data SET live=? WHERE login=?`, [false, event.broadcaster_user_login])
             }
-        }; break;
-        case "channel.channel_points_custom_reward_redemption.add": {
-            if (event.broadcaster_user_login !== 'omuljake' || event.reward.title !== 'Add a new BTTV emote') return res.status(200).end();
-
-            const currentID = (await utils.query(`SELECT emote_id FROM jake`))[0].emote_id
-            await BTTVemote('remove', currentID)
-
-            const parsedInput = (new RegExp(/https?:\/*betterttv\.com\/emotes\/([A-Za-z0-9]+)/)).exec(event.user_input);
-            if (!parsedInput) return res.status(200).end();
-            await BTTVemote('add', parsedInput[1])
-            await utils.query(`UPDATE jake SET emote_id=?`, [parsedInput[1]])
-            client.say(event.broadcaster_user_login, `${event.user_name}, successfully added emote BroBalt`)
         }; break;
     }
 
