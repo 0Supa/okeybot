@@ -94,6 +94,7 @@ client.on("PRIVMSG", async (msg) => {
         'raw': msg.rawSource,
         'text': msg.messageText,
         'timestamp': msg.serverTimestampRaw,
+        'tags': msg.ircTags,
 
         reply: async function (message) {
             message = `${this.user.name}, ${message}`
