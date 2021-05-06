@@ -8,7 +8,7 @@ you can use the **?addbot** command in the [bot's chat](https://www.twitch.tv/po
 
 ## Issues/Suggestions
 You can create a [GitHub Issue](https://github.com/0Supa/okeybot/issues)  
-or you can use the **?suggest** command followed by the suggestion or issue in the [bot's chat](https://www.twitch.tv/popout/okey_bot/chat)
+or you can use the **?suggest** command followed by the suggestion in the [bot's chat](https://www.twitch.tv/popout/okey_bot/chat)
 
 ## Installation
 * `git clone https://github.com/0Supa/okeybot.git`
