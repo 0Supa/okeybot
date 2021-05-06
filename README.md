@@ -6,7 +6,11 @@ If you just want the bot added to your channel
 you can use the **?addbot** command in the [bot's chat](https://www.twitch.tv/popout/okey_bot/chat)  
 *or you can contact [supa8](https://www.twitch.tv/supa8) through a whisper*
 
-## Install
+## Issues/Suggestions
+You can create a [GitHub Issue](https://github.com/0Supa/okeybot/issues)  
+or you can use the **?suggest** command followed by the suggestion or issue in the [bot's chat](https://www.twitch.tv/popout/okey_bot/chat)
+
+## Installation
 * `git clone https://github.com/0Supa/okeybot.git`
 * `cd okeybot`
 * `npm install`
