@@ -15,7 +15,7 @@ router.get('/commands', function (req, res) {
 
 router.get('/commands/:name', function (req, res) {
     const commands = JSON.parse(fs.readFileSync('./data/help.json'))
-    const command = commands.find(x => x.name === req.params.name)
+    const command = commands.find(command => command.name === req.params.name)
     if (!command) return res.redirect('/commands')
     res.render('command', { command });
 });

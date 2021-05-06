@@ -90,7 +90,7 @@ router.get("/stats", async (req, res) => {
 
 router.get("/channels", async (req, res) => {
     const channels = await utils.query(`SELECT login FROM channels`)
-    res.send(channels.map(x => x.login))
+    res.send(channels.map(channel => channel.login))
 })
 
 router.get("/fivemplayers/:serverID", async (req, res) => {

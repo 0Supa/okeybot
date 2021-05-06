@@ -21,7 +21,7 @@ block content
                             td #{channel.prefix}
                             unless channelState
                                 td (none)
-                            else if channelState && channelState.badges.map(x => x.name).includes('vip')
+                            else if channelState && channelState.badges.map(channel => channel.name).includes('vip')
                                 td VIP 
                             else if channelState && channelState.isMod
                                 td Moderator

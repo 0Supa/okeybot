@@ -48,7 +48,7 @@ client.connect();
 
 client.on("ready", async () => {
     client.connectedAt = Date.now()
-    const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(x => x.login)
+    const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     client.joinAll(channels)
     listenEvents()
     supinicAPIping()
@@ -82,7 +82,7 @@ client.on("PRIVMSG", async (msg) => {
             'colorRaw': msg.colorRaw,
             'badgesRaw': msg.badgesRaw,
             'color': msg.color,
-            'badges': msg.badges.map(x => x.name),
+            'badges': msg.badges.map(badge => badge.name),
             'perms': { mod: msg.isMod, broadcaster: msg.badges.hasBroadcaster, vip: msg.badges.hasVIP }
         },
         'channel': {
