@@ -57,9 +57,10 @@ client.on("ready", async () => {
     logger.info("Connected to chat");
 });
 
-process.on("exit", () => {
-    client.say(process.env.botusername, 'Exiting... ppCircle')
-});
+process.on("exit", client.say(process.env.botusername, 'Exiting... ppCircle'));
+process.on('SIGINT', client.say(process.env.botusername, 'Exiting... ppCircle'));
+process.on('SIGUSR1', client.say(process.env.botusername, 'Exiting... ppCircle'));
+process.on('SIGUSR2', client.say(process.env.botusername, 'Exiting... ppCircle'));
 
 client.on("close", (error) => {
     if (error) return logger.error("Client closed due to error", error);
