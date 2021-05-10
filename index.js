@@ -57,8 +57,13 @@ client.on("ready", async () => {
     logger.info("Connected to chat");
 });
 
-process.on('SIGINT', () => {
+process.on('exit', () => {
     client.say(process.env.botusername, 'Exiting... ppCircle')
+    logger.info('Exiting...')
+});
+
+process.on('SIGINT', () => {
+    client.say(process.env.botusername, 'Exiting... ppCircle (SIGINT)')
     logger.info('Exiting...')
 });
 
