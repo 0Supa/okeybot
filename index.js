@@ -53,7 +53,12 @@ client.on("ready", async () => {
     listenEvents()
     supinicAPIping()
     setInterval(supinicAPIping, 600000)
+    client.say(process.env.botusername, 'Connected AlienPls')
     logger.info("Connected to chat");
+});
+
+process.on("exit", () => {
+    client.say(process.env.botusername, 'Exiting... ppCircle')
 });
 
 client.on("close", (error) => {
