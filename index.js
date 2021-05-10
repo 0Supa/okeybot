@@ -57,14 +57,10 @@ client.on("ready", async () => {
     logger.info("Connected to chat");
 });
 
-process.on('handleExit', async () => {
-    process.stdin.resume();
-    await client.say(process.env.botusername, `Exiting... ppCircle`)
+process.on('SIGINT', () => {
+    client.say(process.env.botusername, `Exiting... ppCircle`)
     logger.info(`Exiting...`)
-});
-
-process.on('exit', () => process.emit('handleExit'))
-process.on('SIGINT', () => process.emit('handleExit'))
+})
 
 client.on("close", (error) => {
     if (error) return logger.error("Client closed due to error", error);
