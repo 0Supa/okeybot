@@ -63,8 +63,8 @@ process.on('handleExit', async () => {
     logger.info(`Exiting...`)
 });
 
-process.on('exit', process.emit('handleExit'))
-process.on('SIGINT', process.emit('handleExit'))
+process.on('exit', () => process.emit('handleExit'))
+process.on('SIGINT', () => process.emit('handleExit'))
 
 client.on("close", (error) => {
     if (error) return logger.error("Client closed due to error", error);
