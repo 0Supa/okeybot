@@ -63,7 +63,7 @@ function handleExit(signal) {
     logger.info(`Exiting... (${signal})`)
 }
 
-process.on('exit', handleExit)
+process.on('beforeExit', handleExit)
 process.on('SIGINT', handleExit)
 
 client.on("close", (error) => {
