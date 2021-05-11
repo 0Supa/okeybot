@@ -1,5 +1,4 @@
 const utils = require('./lib/utils/utils.js');
-const { supinicAPIping } = require('./lib/utils/loops.js');
 const { helix } = require('./lib/utils/twitchapi.js')
 const { logger } = require('./lib/utils/logger.js')
 
@@ -51,8 +50,8 @@ client.on("ready", async () => {
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     client.joinAll(channels)
     listenEvents()
-    supinicAPIping()
-    setInterval(supinicAPIping, 600000)
+    utils.supinicAPIping()
+    setInterval(utils.supinicAPIping, 600000)
     client.say(process.env.botusername, 'Connected AlienPls')
     logger.info("Connected to chat");
 });
