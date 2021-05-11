@@ -7,6 +7,7 @@ require('./www')
 
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
+const pubsub = require('./lib/misc/pubsub.js')
 
 const fs = require('fs')
 const collection = require('@discordjs/collection')
@@ -49,6 +50,7 @@ client.on("ready", async () => {
     client.connectedAt = Date.now()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     client.joinAll(channels)
+    pubsub()
     listenEvents()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
