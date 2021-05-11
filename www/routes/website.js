@@ -2,7 +2,7 @@ const fs = require('fs')
 const express = require("express");
 const router = express.Router();
 const utils = require("../../lib/utils/utils.js");
-const { client } = require("../../lib/utils/connections.js");
+const { client } = require("../../lib/misc/connections.js");
 
 router.get('/', function (req, res) {
     res.render('index')

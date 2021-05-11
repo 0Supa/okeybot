@@ -3,7 +3,7 @@ const router = express.Router();
 const crypto = require("crypto");
 const { twitchSigningSecret } = process.env;
 const utils = require("../../lib/utils/utils.js");
-const { client } = require('../../lib/utils/connections.js')
+const { client } = require('../../lib/misc/connections.js')
 const got = require('got')
 const fs = require('fs');
 

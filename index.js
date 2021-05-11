@@ -6,7 +6,7 @@ const { logger } = require('./lib/utils/logger.js')
 require('dotenv').config()
 require('./www')
 
-const { client } = require('./lib/utils/connections.js')
+const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/handler.js')
 
 const fs = require('fs')
