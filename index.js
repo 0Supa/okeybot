@@ -6,7 +6,7 @@ require('dotenv').config()
 require('./www')
 
 const { client } = require('./lib/misc/connections.js')
-const { handle } = require('./lib/handler.js')
+const { handle } = require('./lib/misc/handler.js')
 
 const fs = require('fs')
 const collection = require('@discordjs/collection')
