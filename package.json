@@ -21,10 +21,12 @@
     "mathjs": "^9.3.2",
     "moment": "^2.29.1",
     "pug": "^3.0.2",
+    "reconnecting-websocket": "^4.4.0",
     "redis": "^3.1.2",
     "request": "^2.88.2",
     "util": "^0.12.3",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "ws": "^7.4.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
