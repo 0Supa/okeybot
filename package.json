@@ -11,7 +11,7 @@
     "country-emoji": "^1.5.4",
     "crypto": "^1.0.1",
     "dank-twitch-irc": "^4.3.0",
-    "dotenv": "^9.0.1",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "got": "^11.8.2",
