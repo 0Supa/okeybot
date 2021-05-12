@@ -49,7 +49,7 @@ fs.writeFileSync("./data/help.json", JSON.stringify(cmdsJSON), { encoding: 'utf8
 client.connect();
 
 client.on("ready", async () => {
-    client.connectedAt = Date.now()
+    client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     client.joinAll(channels)
     pubsub.connect()
