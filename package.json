@@ -16,6 +16,7 @@
     "fs": "^0.0.1-security",
     "got": "^11.8.2",
     "http": "^0.0.1-security",
+    "humanize-duration": "^3.26.0",
     "install": "^0.13.0",
     "mariadb": "^2.5.3",
     "mathjs": "^9.3.2",
