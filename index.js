@@ -1,3 +1,5 @@
+const Twitch = require('dank-twitch-irc');
+
 const utils = require('./lib/utils/utils.js');
 const { helix } = require('./lib/utils/twitchapi.js')
 const { logger } = require('./lib/utils/logger.js')
@@ -5,7 +7,7 @@ const { logger } = require('./lib/utils/logger.js')
 require('dotenv').config()
 require('./www')
 
-const { Twitch, client } = require('./lib/misc/connections.js')
+const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const pubsub = require('./lib/misc/pubsub.js')
 
