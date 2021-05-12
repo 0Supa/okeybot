@@ -72,13 +72,13 @@ client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
     let channelData;
-    const cacheData = await utils.cache.get(msg.channelName)
+    const cacheData = await utils.cache.get(msg.channelID)
 
-    if (cacheData) {
+    if (cacheData && cacheData.login === msg.channelName) {
         channelData = JSON.parse(cacheData)
     } else {
-        channelData = (await utils.query(`SELECT prefix, added FROM channels WHERE login=?`, [msg.channelName]))[0]
-        await utils.cache.set(msg.channelName, JSON.stringify(channelData))
+        channelData = (await utils.query(`SELECT login, prefix, added FROM channels WHERE platform_id=?`, [msg.channelID]))[0]
+        await utils.cache.set(msg.channelID, JSON.stringify(channelData))
     }
 
     const msgData = {
