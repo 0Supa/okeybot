@@ -70,6 +70,39 @@ client.on("close", (error) => {
     logger.error('Client closed without an error')
 });
 
+client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
+    if (!messageID) return;
+
+    switch (messageID) {
+        case 'msg_rejected':
+        case 'msg_rejected_mandatory': {
+            logger.error(`received msg_rejected/mandatory from ${channelName} -> ${messageText}`);
+            break;
+        }
+
+        case 'no_permission': {
+            logger.error(`no permission from ${channelName} -> ${messageText}`);
+            await client.say(channelName, 'I have no permission to perform that action');
+            break;
+        }
+
+        case 'msg_banned': {
+            logger.info(`bot is banned in ${channelName}`);
+            const data = (await utils.query(`SELECT COUNT(id) AS entries FROM channels WHERE login=?`, [channelName]))[0]
+            if (data.entries) await utils.query(`UPDATE channels SET parted=? WHERE login=?`, [true, channelName])
+        }
+
+        case 'host_on':
+        case 'bad_delete_message_mod':
+        case 'msg_channel_suspended':
+        case 'host_target_went_offline':
+            break;
+
+        default:
+            logger.info(`notice ${messageID} in channel ${channelName} -> ${messageText}`);
+    }
+});
+
 client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
@@ -127,8 +160,6 @@ client.on("JOIN", async (o) => {
 });
 
 client.on("PART", async (o) => {
-    const data = (await utils.query(`SELECT COUNT(id) AS entries FROM channels WHERE login=?`, [o.channelName]))[0]
-    if (data.entries) await utils.query(`UPDATE channels SET parted=? WHERE login=?`, [true, o.channelName])
     logger.info(`Parted ${o.channelName}`)
 });
 
