@@ -114,7 +114,7 @@ client.on("PRIVMSG", async (msg) => {
                     return await this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
                 }
                 await this.send(`${this.user.name}, an unexcepted error occurred when sending the reply message`);
-                console.error(`error while sending reply message in ${meta.channel}: ${e}`);
+                console.error(`error while sending reply message in ${this.channel.login}: ${e}`);
             }
         }
     }
