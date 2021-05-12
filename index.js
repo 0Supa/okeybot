@@ -5,7 +5,7 @@ const { logger } = require('./lib/utils/logger.js')
 require('dotenv').config()
 require('./www')
 
-const { client } = require('./lib/misc/connections.js')
+const { Twitch, client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const pubsub = require('./lib/misc/pubsub.js')
 
@@ -103,15 +103,17 @@ client.on("PRIVMSG", async (msg) => {
         'timestamp': msg.serverTimestampRaw,
         'tags': msg.ircTags,
 
-        reply: async function (message) {
-            message = `${this.user.name}, ${message}`
-            await client.say(this.channel.login, utils.fitText(message, 490))
-        },
-        say: async function (message) {
-            await client.say(this.channel.login, utils.fitText(message, 490))
-        },
-        me: async function (message) {
-            await client.me(this.channel.login, utils.fitText(message, 490))
+        send: async function (message) {
+            try {
+                message = utils.fitText(message, 490)
+                await client.say(this.channel.login, message)
+            } catch (e) {
+                if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) {
+                    return await this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
+                }
+                await this.send(`${this.user.name}, an unexcepted error occurred when sending the reply message`);
+                console.error(`error while sending reply message in ${meta.channel}: ${e}`);
+            }
         }
     }
 
