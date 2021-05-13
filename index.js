@@ -1,7 +1,6 @@
 const Twitch = require('dank-twitch-irc');
 
 const utils = require('./lib/utils/utils.js');
-const { helix } = require('./lib/utils/twitchapi.js')
 const { logger } = require('./lib/utils/logger.js')
 
 require('dotenv').config()
@@ -51,9 +50,8 @@ client.connect();
 client.on("ready", async () => {
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
-    client.joinAll(channels)
+    await client.joinAll(channels)
     pubsub.connect()
-    listenEvents()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
     client.say(process.env.botusername, 'Connected AlienPls')
@@ -163,31 +161,3 @@ client.on("JOIN", async (o) => {
 client.on("PART", async (o) => {
     logger.info(`Parted ${o.channelName}`)
 });
-
-async function listenEvents() {
-    const events = ['stream.online', 'stream.offline', 'channel.update'];
-
-    const channels = await utils.query('SELECT user_id AS id, login FROM notify_data')
-
-    for (let channel of channels) {
-        let requestBody = {
-            "type": null,
-            "version": "1",
-            "condition": {
-                "broadcaster_user_id": channel.id
-            },
-            "transport": {
-                "method": "webhook",
-                "callback": `${process.env.website_url}/api/webhooks/callback`,
-                "secret": process.env.twitchSigningSecret
-            }
-        }
-
-        for (let event of events) {
-            requestBody['type'] = event
-            const { body } = await helix.post('eventsub/subscriptions', { json: requestBody })
-            if (!body.error) logger.info(`created listener ${requestBody.type} for ${channel.login}`)
-            else if (body?.error !== 'Conflict') logger.error(`failed listening ${requestBody.type} for ${channel.login} (${body.error}): ${body.message}`)
-        }
-    }
-}
