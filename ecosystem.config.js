@@ -1,6 +1,9 @@
 module.exports = {
   apps: [{
     name: "okeybot",
-    script: "index.js"
+    script: "index.js",
+    "args": [
+      "--inspect"
+    ]
   }]
 }
