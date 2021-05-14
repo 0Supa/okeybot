@@ -48,14 +48,15 @@ fs.writeFileSync("./data/help.json", JSON.stringify(cmdsJSON), { encoding: 'utf8
 client.connect();
 
 client.on("ready", async () => {
+    logger.info("Connected to chat");
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     await client.joinAll(channels)
+    logger.info("Joined all channels")
     pubsub.connect()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
-    client.say(process.env.botusername, 'Connected AlienPls')
-    logger.info("Connected to chat");
+    client.say(process.env.botusername, 'AlienPls')
 });
 
 process.on('SIGINT', () => {
