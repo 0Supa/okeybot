@@ -8,6 +8,7 @@ require('./www')
 
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
+const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
 
 const fs = require('fs')
@@ -141,6 +142,7 @@ client.on("PRIVMSG", async (msg) => {
         send: async function (message) {
             try {
                 message = utils.fitText(message, 490)
+                if (this.query.pajbotAPI) message = await banphraseCheck(message, this.query.pajbotAPI)
                 await client.say(this.channel.login, message)
             } catch (e) {
                 if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) {
