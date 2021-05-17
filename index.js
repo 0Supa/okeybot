@@ -142,7 +142,7 @@ client.on("PRIVMSG", async (msg) => {
         send: async function (message) {
             try {
                 message = utils.fitText(message, 490)
-                if (this.query.pajbotAPI) message = await banphraseCheck(message, this.query.pajbotAPI)
+                if (this.channel.query.pajbotAPI) message = await banphraseCheck(message, this.channel.query.pajbotAPI)
                 await client.say(this.channel.login, message)
             } catch (e) {
                 if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) {
