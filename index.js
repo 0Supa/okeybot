@@ -9,6 +9,7 @@ require('./www')
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
+const { invisChars } = require('../utils/regex.js')
 const pubsub = require('./lib/misc/pubsub.js')
 
 const fs = require('fs')
@@ -135,9 +136,12 @@ client.on("PRIVMSG", async (msg) => {
         },
         'isAction': msg.isAction,
         'raw': msg.rawSource,
-        'text': msg.messageText,
+        'text': msg.messageText.replace(invisChars, ''),
         'timestamp': msg.serverTimestampRaw,
         'tags': msg.ircTags,
+        'prefix': this.channel.query.prefix ?? process.env.default_prefix,
+        'args': this.text.slice(this.prefix.length).trim().split(' '),
+        'commandName': this.args.shift().toLowerCase(),
 
         send: async function (message) {
             try {
