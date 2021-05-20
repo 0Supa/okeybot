@@ -124,9 +124,9 @@ client.on("PRIVMSG", async (msg) => {
             'name': msg.displayName,
             'login': msg.senderUsername,
             'colorRaw': msg.colorRaw,
-            'badgesRaw': msg.badgesRaw,
             'color': msg.color,
-            'badges': msg.badges.map(badge => badge.name),
+            'badgesRaw': msg.badgesRaw,
+            'badges': msg.badges,
             'perms': { mod: msg.isMod, broadcaster: msg.badges.hasBroadcaster, vip: msg.badges.hasVIP }
         },
         'channel': {
