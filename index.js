@@ -118,6 +118,10 @@ client.on("PRIVMSG", async (msg) => {
         await utils.cache.set(msg.channelID, JSON.stringify(channelData))
     }
 
+    const text = msg.messageText.replace(invisChars, '')
+    const prefix = channelData.prefix ?? process.env.default_prefix
+    const args = text.slice(prefix.length).trim().split(' ')
+
     const msgData = {
         'user': {
             'id': msg.senderUserID,
@@ -136,12 +140,12 @@ client.on("PRIVMSG", async (msg) => {
         },
         'isAction': msg.isAction,
         'raw': msg.rawSource,
-        'text': msg.messageText.replace(invisChars, ''),
+        text,
         'timestamp': msg.serverTimestampRaw,
         'tags': msg.ircTags,
-        'prefix': this.channel.query.prefix ?? process.env.default_prefix,
-        'args': this.text.slice(this.prefix.length).trim().split(' '),
-        'commandName': this.args.shift().toLowerCase(),
+        prefix,
+        'args': text.slice(prefix.length).trim().split(' '),
+        'commandName': args.shift().toLowerCase(),
 
         send: async function (message) {
             try {
