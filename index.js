@@ -9,7 +9,6 @@ require('./www')
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
-const { invisChars } = require('./lib/utils/regex.js')
 const pubsub = require('./lib/misc/pubsub.js')
 
 const fs = require('fs')
@@ -118,19 +117,15 @@ client.on("PRIVMSG", async (msg) => {
         await utils.cache.set(msg.channelID, JSON.stringify(channelData))
     }
 
-    const text = msg.messageText.replace(invisChars, '')
-    const prefix = channelData.prefix ?? process.env.default_prefix
-    const args = text.slice(prefix.length).trim().split(' ')
-
     const msgData = {
         'user': {
             'id': msg.senderUserID,
             'name': msg.displayName,
             'login': msg.senderUsername,
             'colorRaw': msg.colorRaw,
-            'color': msg.color,
             'badgesRaw': msg.badgesRaw,
-            'badges': msg.badges,
+            'color': msg.color,
+            'badges': msg.badges.map(badge => badge.name),
             'perms': { mod: msg.isMod, broadcaster: msg.badges.hasBroadcaster, vip: msg.badges.hasVIP }
         },
         'channel': {
@@ -140,12 +135,9 @@ client.on("PRIVMSG", async (msg) => {
         },
         'isAction': msg.isAction,
         'raw': msg.rawSource,
-        'text': text,
+        'text': msg.messageText,
         'timestamp': msg.serverTimestampRaw,
         'tags': msg.ircTags,
-        'prefix': prefix,
-        'args': text.slice(prefix.length).trim().split(' '),
-        'commandName': args.shift().toLowerCase(),
 
         send: async function (message) {
             try {
