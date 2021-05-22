@@ -28,9 +28,8 @@ router.get('/channels', async function (req, res) {
 router.get('/channels/:userid', async function (req, res) {
     const channel = (await utils.query(`SELECT id, platform_id, login, prefix, added FROM channels WHERE id=?`, [req.params.userid]))[0]
     if (!channel) return res.redirect('/channels')
-    const mostActive = (await utils.query(`SELECT user_login, COUNT(id) AS message_count FROM messages WHERE channel_id=? GROUP BY user_login ORDER BY message_count DESC LIMIT 1`, channel.platform_id))[0]
     const date = new Date(channel.added)
-    res.render('channel', { channel, parsedAdded: date.toDateString(), mostActive });
+    res.render('channel', { channel, parsedAdded: date.toDateString() });
 });
 
 router.get('/stats', async function (req, res) {
