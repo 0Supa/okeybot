@@ -140,10 +140,10 @@ client.on("PRIVMSG", async (msg) => {
         },
         'isAction': msg.isAction,
         'raw': msg.rawSource,
-        text,
+        'text': text,
         'timestamp': msg.serverTimestampRaw,
         'tags': msg.ircTags,
-        prefix,
+        'prefix': prefix,
         'args': text.slice(prefix.length).trim().split(' '),
         'commandName': args.shift().toLowerCase(),
 
