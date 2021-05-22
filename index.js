@@ -9,7 +9,7 @@ require('./www')
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
-const { invisChars } = require('../utils/regex.js')
+const { invisChars } = require('./lib/utils/regex.js')
 const pubsub = require('./lib/misc/pubsub.js')
 
 const fs = require('fs')
