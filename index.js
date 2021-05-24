@@ -145,10 +145,7 @@ client.on("PRIVMSG", async (msg) => {
                 if (this.channel.query.pajbotAPI) message = await banphraseCheck(message, this.channel.query.pajbotAPI)
                 await client.say(this.channel.login, message)
             } catch (e) {
-                if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) {
-                    return await this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
-                }
-                await this.send(`${this.user.name}, an unexcepted error occurred when sending the reply message`);
+                if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) return await this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
                 console.error(`error while sending reply message in ${this.channel.login}: ${e}`);
             }
         }
