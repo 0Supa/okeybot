@@ -4,7 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
-    "async-redis": "^1.1.7",
+    "async-redis": "^2.0.0",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
     "cheerio": "^1.0.0-rc.9",
