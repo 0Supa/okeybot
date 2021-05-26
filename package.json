@@ -4,7 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
-    "async-redis": "^1.1.7",
+    "async-redis": "^2.0.0",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
     "cheerio": "^1.0.0-rc.9",
@@ -27,7 +27,7 @@
     "request": "^2.88.2",
     "util": "^0.12.3",
     "winston": "^3.3.3",
-    "ws": "^7.4.5"
+    "ws": "^7.4.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
