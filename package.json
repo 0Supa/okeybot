@@ -15,7 +15,7 @@
     "fs": "^0.0.1-security",
     "got": "^11.8.2",
     "http": "^0.0.1-security",
-    "humanize-duration": "^3.26.0",
+    "humanize-duration": "^3.27.0",
     "install": "^0.13.0",
     "ioredis": "^4.27.4",
     "mariadb": "^2.5.3",
