@@ -5,7 +5,8 @@ $(document).ready(function () {
             pageLength: 250,
             order: [0, "asc"],
             "aoColumnDefs": [
-                { "bSortable": false, "aTargets": [5] }
+                { "bSortable": false, "aTargets": [5] },
+                { "type": "num", "aTargets": [4] }
             ]
         });
     });
