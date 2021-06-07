@@ -6,7 +6,7 @@ $(document).ready(function () {
             order: [0, "asc"],
             "aoColumnDefs": [
                 { "bSortable": false, "aTargets": [5] },
-                { "type": "num", "aTargets": [4] }
+                { "type": "natural", "aTargets": [4] }
             ]
         });
     });
