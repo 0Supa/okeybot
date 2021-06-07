@@ -17,7 +17,7 @@
     "http": "^0.0.1-security",
     "humanize-duration": "^3.27.0",
     "install": "^0.13.0",
-    "ioredis": "^4.27.4",
+    "ioredis": "^4.27.5",
     "mariadb": "^2.5.3",
     "mathjs": "^9.4.1",
     "moment": "^2.29.1",
