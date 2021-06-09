@@ -6,7 +6,7 @@
     "@discordjs/collection": "^0.1.6",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
-    "cheerio": "^1.0.0-rc.9",
+    "cheerio": "^1.0.0-rc.10",
     "country-emoji": "^1.5.4",
     "crypto": "^1.0.1",
     "dank-twitch-irc": "^4.3.0",
