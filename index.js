@@ -109,15 +109,7 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
 client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
-    let channelData;
-    const cacheData = await utils.redis.get(`ob:channel:${msg.channelID}`)
-
-    if (cacheData) {
-        channelData = JSON.parse(cacheData)
-    } else {
-        channelData = (await utils.query(`SELECT login, prefix, pajbotAPI, logging, added FROM channels WHERE platform_id=?`, [msg.channelID]))[0]
-        utils.redis.set(`ob:channel:${msg.channelID}`, JSON.stringify(channelData))
-    }
+    const channelData = await utils.getChannel(msg.channelID)
 
     const msgData = {
         'user': {
