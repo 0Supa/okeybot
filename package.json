@@ -19,7 +19,6 @@
     "install": "^0.13.0",
     "ioredis": "^4.27.6",
     "mariadb": "^2.5.3",
-    "mathjs": "^9.4.2",
     "moment": "^2.29.1",
     "pug": "^3.0.2",
     "reconnecting-websocket": "^4.4.0",
