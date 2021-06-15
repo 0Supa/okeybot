@@ -1,9 +1,9 @@
 # ![Okey](https://cdn.frankerfacez.com/emoticon/275054/1) Okey BOT
-![MEGADANK](https://cdn.frankerfacez.com/emoticon/239630/1) Twitch chatbot made by [Supa](https://www.twitch.tv/supa8)
+![MEGADANK](https://cdn.frankerfacez.com/emoticon/239630/1) Twitch chatbot made by [Supa](https://www.twitch.tv/supaeg)
 
 ## I just want the bot added in my Twitch chat
 You can use the **?addbot** command in the [bot's chat](https://www.twitch.tv/popout/okey_bot/chat)  
-*or you can contact [supa8](https://www.twitch.tv/supa8) through a whisper*
+*or you can contact [supaeg](https://www.twitch.tv/supaeg) through a whisper*
 
 ## Issues/Suggestions
 You can create a [GitHub Issue](https://github.com/0Supa/okeybot/issues)  
