@@ -13,21 +13,20 @@ const pubsub = require('./lib/misc/pubsub.js')
 const { ws: stv } = require('./lib/misc/stv-ws.js')
 
 const fs = require('fs')
-const collection = require('@discordjs/collection')
 
-client.commands = new collection();
+client.commands = {};
 const commandFiles = fs.readdirSync('./lib/commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./lib/commands/${file}`);
-    client.commands.set(command.name, command)
+    client.commands[command.name] = command
 }
 
 client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "fill", "%", "ping", "prefix", "pajbot", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "subemotes", "user", "steam", "cat", "dog", "channels", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest", "lines", "everyone", "7tvupdates", "emote", "bans", "epicgames", "tenor", "hug", "randclip", "confusables", "transform"]
 let cmdsJSON = []
 for (let cmdName of client.knownCommands) {
     let badgeURL;
-    const cmd = client.commands.get(cmdName)
+    const cmd = client.commands[cmdName]
 
     switch (cmd.access) {
         case "mod": badgeURL = 'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'; break;
