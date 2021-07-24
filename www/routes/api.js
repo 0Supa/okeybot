@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     res.render('api');
 })
 
-router.get("/cmdlist", (req, res) => {
+router.get("/cmdlist", async (req, res) => {
     res.json(JSON.parse((await utils.redis.get(`ob:help`))))
 })
 
