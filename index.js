@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 }
 
 client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "fill", "%", "ping", "prefix", "pajbot", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "subemotes", "user", "steam", "cat", "dog", "channels", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest", "lines", "everyone", "7tvupdates", "emote", "bans", "epicgames", "tenor", "hug", "randclip", "confusables", "transform"]
-let cmdsJSON = []
+let cmdsJSON = {}
 for (let cmdName of client.knownCommands) {
     let badgeURL;
     const cmd = client.commands[cmdName]
@@ -33,18 +33,17 @@ for (let cmdName of client.knownCommands) {
         case "vip": badgeURL = 'https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2'; break;
     }
 
-    cmdsJSON[cmdsJSON.length] = {
+    cmdsJSON[cmd.name] = {
         name: cmd.name,
         nameEncoded: encodeURIComponent(cmd.name),
         aliases: cmd.aliases?.join(', '),
         description: cmd.description,
         access: cmd.access,
         accessBadge: badgeURL,
-        cooldown: cmd.cooldown,
-        preview: cmd.preview
+        cooldown: cmd.cooldown
     }
 }
-fs.writeFileSync("./data/help.json", JSON.stringify(cmdsJSON), { encoding: 'utf8', flag: 'w' })
+await utils.redis.set(`ob:help`, JSON.stringify(cmdsJSON))
 
 client.connect();
 

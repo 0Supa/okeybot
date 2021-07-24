@@ -3,14 +3,13 @@ const router = express.Router();
 const utils = require("../../lib/utils/utils.js");
 const { client } = require('../../lib/misc/connections.js')
 const got = require('got')
-const fs = require('fs');
 
 router.get("/", (req, res) => {
     res.render('api');
 })
 
 router.get("/cmdlist", (req, res) => {
-    res.json(JSON.parse(fs.readFileSync('./data/help.json')))
+    res.json(JSON.parse((await utils.redis.get(`ob:help`))))
 })
 
 router.get("/stats", async (req, res) => {
