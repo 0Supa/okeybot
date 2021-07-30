@@ -24,7 +24,7 @@
     "request": "^2.88.2",
     "util": "^0.12.4",
     "winston": "^3.3.3",
-    "ws": "^7.4.6"
+    "ws": "^8.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
