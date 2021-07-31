@@ -56,7 +56,7 @@ client.on("ready", async () => {
     await client.joinAll(channels)
     logger.info("Joined all channels")
     pubsub.reconnect()
-    stv.reconnect()
+    //stv.reconnect()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
     client.say(process.env.botusername, 'AlienPls')
