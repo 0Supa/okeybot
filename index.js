@@ -59,9 +59,9 @@ client.on("ready", async () => {
         joins++
         client.join(channel)
 
-        if (joins >= 19) {
+        if (joins >= 18) {
             joins = 0
-            await utils.sleep(10000)
+            await utils.sleep(10500)
         }
     }
 
