@@ -53,7 +53,11 @@ client.on("ready", async () => {
     logger.info("Connected to chat");
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
-    await client.joinAll(channels)
+    for (const channel of channels) {
+        setTimeout(() => {
+            await client.join(channel)
+        }, 1500);
+    }
     logger.info("Joined all channels")
     pubsub.reconnect()
     stv.reconnect()
