@@ -54,7 +54,7 @@ client.on("ready", async () => {
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     for (const channel of channels) {
-        setTimeout(() => {
+        setTimeout(async () => {
             await client.join(channel)
         }, 1500);
     }
