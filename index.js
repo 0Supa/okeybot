@@ -12,7 +12,7 @@ const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
 const { ws: stv } = require('./lib/misc/stv-ws.js')
 
-const fs = require('fs')
+const fs = require('fs');
 
 client.commands = {};
 const commandFiles = fs.readdirSync('./lib/commands').filter(file => file.endsWith('.js'));
@@ -53,10 +53,18 @@ client.on("ready", async () => {
     logger.info("Connected to chat");
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
+
+    let joins = 0;
     for (const channel of channels) {
+        joins++
         await client.join(channel)
-        await utils.sleep(1500)
+
+        if (joins > 20) {
+            joins = 0
+            await utils.sleep(1500)
+        }
     }
+
     logger.info("Joined all channels")
     pubsub.reconnect()
     stv.reconnect()
