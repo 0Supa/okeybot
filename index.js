@@ -54,9 +54,8 @@ client.on("ready", async () => {
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     for (const channel of channels) {
-        setTimeout(async () => {
-            await client.join(channel)
-        }, 1500);
+        await client.join(channel)
+        await utils.sleep(1500)
     }
     logger.info("Joined all channels")
     pubsub.reconnect()
