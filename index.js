@@ -10,7 +10,7 @@ const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
-const { ws: stv } = require('./lib/misc/stv-ws.js')
+const stv = require('./lib/misc/stv-ev.js')
 
 const fs = require('fs');
 
@@ -67,7 +67,7 @@ client.on("ready", async () => {
 
     logger.info("Joined all channels")
     pubsub.reconnect()
-    stv.reconnect()
+    stv.connect()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
     client.say(process.env.botusername, 'AlienPls')
