@@ -57,7 +57,7 @@ client.on("ready", async () => {
     let joins = 0;
     for (const channel of channels) {
         joins++
-        await client.join(channel)
+        await client.join(channel).catch(console.error)
 
         if (joins >= 10) {
             joins = 0
