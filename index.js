@@ -57,7 +57,12 @@ client.on("ready", async () => {
     let joins = 0;
     for (const channel of channels) {
         joins++
-        await client.join(channel).catch(console.error)
+
+        try {
+            await client.join(channel)
+        } catch (error) {
+            await utils.query(`INSERT INTO errors (type, error) VALUES (?, ?)`, ['Join failed', error])
+        }
 
         if (joins >= 10) {
             joins = 0
