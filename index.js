@@ -66,7 +66,7 @@ client.on("ready", async () => {
 
         if (joins >= 10) {
             joins = 0
-            await utils.sleep(10500)
+            await utils.sleep(11000)
         }
     }
 
