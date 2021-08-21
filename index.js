@@ -64,9 +64,9 @@ client.on("ready", async () => {
             await utils.query(`INSERT INTO errors (type, error) VALUES (?, ?)`, ['Join failed', error])
         }
 
-        if (joins >= 14) {
+        if (joins > 20) {
             joins = 0
-            await utils.sleep(11000)
+            await utils.sleep(10500)
         }
     }
 
