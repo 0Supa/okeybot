@@ -62,6 +62,7 @@ client.on("ready", async () => {
             await client.join(channel)
         } catch (error) {
             await utils.query(`INSERT INTO errors (type, error) VALUES (?, ?)`, ['Join failed', error])
+            client.say(process.env.botusername, `monkaS couldn't join channel ${channel}`)
         }
 
         if (joins >= 20) {
