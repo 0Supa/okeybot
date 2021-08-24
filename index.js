@@ -53,24 +53,7 @@ client.on("ready", async () => {
     logger.info("Connected to chat");
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
-
-    let joins = 0;
-    for (const channel of channels) {
-        joins++
-
-        try {
-            await client.join(channel)
-        } catch (error) {
-            await utils.query(`INSERT INTO errors (type, error) VALUES (?, ?)`, ['Join failed', error])
-            client.say(process.env.botusername, `monkaS couldn't join channel ${channel}`)
-        }
-
-        if (joins >= 20) {
-            joins = 0
-            await utils.sleep(10500)
-        }
-    }
-
+    await client.joinAll(channels)
     logger.info("Joined all channels")
     pubsub.reconnect()
     stv.connect()
