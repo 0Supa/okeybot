@@ -25,6 +25,12 @@ block content
                 td Cooldown
                 td #{command.cooldown} seconds
             tr
+                td Usage
+                if command.usage
+                    td ?#{command.name} #{command.usage}
+                else
+                    td ?#{command.name}
+            tr
                 td Code
                 td
                     a(href="https://github.com/0Supa/okeybot/blob/main/lib/commands/" + command.nameEncoded + ".js" target="_blank") GitHub
