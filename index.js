@@ -57,6 +57,7 @@ client.on("ready", async () => {
     logger.info("Joined all channels")
     stv.connect()
     utils.supinicAPIping()
+    require('./lib/misc/pubsub.js')
     setInterval(utils.supinicAPIping, 600000)
     client.say(process.env.botusername, 'AlienPls')
 });
