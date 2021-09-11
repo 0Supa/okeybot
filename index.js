@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 }
 
 (async () => {
-    client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "fill", "%", "ping", "prefix", "pajbot", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "botsubs", "user", "steam", "cat", "dog", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest", "lines", "everyone", "7tvupdates", "emote", "epicgames", "tenor", "hug", "randclip", "confusables", "transform", "spam", "clear"]
+    client.knownCommands = ["8ball", "copypasta", "dadjoke", "donger", "fill", "%", "ping", "prefix", "pajbot", "pyramid", "title", "tts", "uptime", "weather", "yourmom", "notify", "help", "botsubs", "user", "steam", "cat", "dog", "geoip", "query", "botinfo", "firstmsg", "randline", "chatters", "mostsent", "findmsg", "esearch", "avatar", "stalk", "math", "stats", "funfact", "suggest", "lines", "everyone", "7tvupdates", "emote", "epicgames", "tenor", "hug", "randclip", "confusables", "transform", "spam", "clear", "cmd"]
     let cmdsJSON = {}
     for (let cmdName of client.knownCommands) {
         let badgeURL;
