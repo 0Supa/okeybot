@@ -1,0 +1,39 @@
+{
+  "bot": {
+    "login": "okey_bot",
+    "userId": "642032441",
+    "defaultPrefix": "?"
+  },
+  "owner": {
+    "login": "8supa",
+    "userId": "675052240"
+  },
+  "auth": {
+    "twitch": {
+      "password": "Twitch Authorization",
+      "clientId": "Twitch Client-Id"
+    },
+    "openweathermap": "OpenWeather API Key",
+    "tts": "",
+    "wolfram": "WolframAlpha AppID",
+    "supinic": {
+      "userId": "",
+      "key": ""
+    },
+    "bttv": "BTTV Authorization",
+    "7tv": "7TV Authorization",
+    "tenor": "Tenor API Key",
+    "discordWebhook": "Discord Webhook URL",
+    "database": {
+      "host": "127.0.0.1",
+      "user": "",
+      "pass": "",
+      "name": "Database Name",
+      "connectionLimit": 50
+    }
+  },
+  "website": {
+    "url": "https://okey.supa.codes",
+    "port": 8484
+  }
+}

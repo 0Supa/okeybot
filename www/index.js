@@ -1,3 +1,4 @@
+const config = require('../config.json')
 const { logger } = require('../lib/utils/logger.js')
 const express = require('express')
 const app = express()
@@ -24,6 +25,6 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.listen(process.env.port, () => {
-    logger.info(`listening on ${process.env.port}`)
+app.listen(config.website.port, () => {
+    logger.info(`listening on ${config.website.port}`)
 })

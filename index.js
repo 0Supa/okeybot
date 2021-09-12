@@ -3,7 +3,8 @@ const Twitch = require('dank-twitch-irc');
 const utils = require('./lib/utils/utils.js');
 const { logger } = require('./lib/utils/logger.js')
 
-require('dotenv').config()
+const config = require('./config.json')
+
 require('./www')
 
 const { client } = require('./lib/misc/connections.js')
@@ -60,11 +61,11 @@ client.on("ready", async () => {
     stv.connect()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
-    client.say(process.env.botusername, 'AlienPls')
+    client.say(config.bot.login, 'AlienPls')
 });
 
 process.on('SIGINT', () => {
-    client.say(process.env.botusername, `Exiting... ppCircle`)
+    client.say(config.bot.login, `Exiting... ppCircle`)
     logger.info(`Exiting...`)
 })
 
