@@ -6,6 +6,7 @@ const { logger } = require('./lib/utils/logger.js')
 const config = require('./config.json')
 
 require('./www')
+require('./lib/misc/commands.js')
 
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
