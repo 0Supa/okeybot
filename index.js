@@ -55,14 +55,20 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
 
         case 'msg_banned': {
             logger.info(`bot is banned in ${channelName}`);
+            client.say(config.bot.login, `Failed to join ${channelName} - bot banned`)
             const data = (await utils.query(`SELECT COUNT(id) AS entries FROM channels WHERE login=?`, [channelName]))[0]
             if (data.entries) await utils.query(`UPDATE channels SET parted=? WHERE login=?`, [true, channelName])
             break;
         }
 
+        case 'msg_channel_suspended': {
+            logger.info(`${channelName} is suspended`);
+            client.say(config.bot.login, `Failed to join ${channelName} - channel suspended`)
+            break;
+        }
+
         case 'host_on':
         case 'bad_delete_message_mod':
-        case 'msg_channel_suspended':
         case 'host_target_went_offline':
             break;
 
