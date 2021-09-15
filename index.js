@@ -116,10 +116,11 @@ client.on("PRIVMSG", async (msg) => {
     handle(msgData)
 })
 
-client.on("JOIN", async (o) => {
-    logger.info(`Joined ${o.channelName}`)
+client.on("JOIN", async ({ channelName }) => {
+    logger.info(`Joined ${channelName}`)
 });
 
-client.on("PART", async (o) => {
-    logger.info(`Parted ${o.channelName}`)
+client.on("PART", async ({ channelName }) => {
+    logger.info(`Parted ${channelName}`)
+    client.part(channelName)
 });
