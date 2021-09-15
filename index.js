@@ -120,7 +120,7 @@ client.on("JOIN", ({ channelName }) => {
     logger.info(`Joined ${channelName}`)
 });
 
-client.on("PART", async ({ channelName }) => {
+client.on("PART", ({ channelName }) => {
     logger.info(`Parted ${channelName}`)
-    await client.part(channelName)
+    client.part(channelName)
 });
