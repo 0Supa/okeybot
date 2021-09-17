@@ -1,21 +1,25 @@
 extends main
 block content
-    title #{channel.login} - Channel Info - Okey bot
+    title #{login} - Channel Info - Okey bot
     div(class="center")
+        form(action='/channel' method='GET')
+            img(src='https://cdn.betterttv.net/emote/5d0ae0d1aae4851c803d4710/2x')
+            input(name='username' type='text' placeholder='Check another channel' required)
+            input(type="submit" value="🔎")
         table(id="channel")
             tr 
                 td ID 
-                td #{channel.id}
+                td #{id}
             tr 
                 td Twitch ID 
-                td #{channel.platform_id}
+                td #{TwitchId}
             tr
                 td Login
                 td
-                    a(href="https://www.twitch.tv/" + channel.login target="_blank") #{channel.login}
+                    a(href="https://www.twitch.tv/" + login target="_blank") #{login}
             tr
                 td Prefix
-                td #{channel.prefix}
+                td #{prefix}
             tr 
                 td Added on 
-                td #{parsedAdded}
+                td #{added}

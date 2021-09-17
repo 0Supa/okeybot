@@ -20,15 +20,14 @@ router.get('/commands/:name', async (req, res) => {
 });
 
 router.get('/channels', async (req, res) => {
-    const channels = await utils.query(`SELECT * FROM channels`)
-    res.render('channels', { channels, channelStates: client.userStateTracker.channelStates });
+    res.render('channels');
 });
 
-router.get('/channels/:userid', async (req, res) => {
-    const channel = (await utils.query(`SELECT id, platform_id, login, prefix, added FROM channels WHERE id=?`, [req.params.userid]))[0]
-    if (!channel) return res.redirect('/channels')
+router.get('/channel', async (req, res) => {
+    const channel = (await utils.query(`SELECT id, platform_id AS TwitchId, login, prefix, added FROM channels WHERE login=?`, [req.query.username]))[0]
+    if (!channel) return res.render('channels', { error: 'Channel not found' });
     const date = new Date(channel.added)
-    res.render('channel', { channel, parsedAdded: date.toDateString() });
+    res.render('channel', { ...channel, added: date.toDateString() });
 });
 
 router.get('/stats', async (req, res) => {
