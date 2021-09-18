@@ -12,7 +12,7 @@ router.get('/commands', async (req, res) => {
 });
 
 router.get('/commands/:name', async (req, res) => {
-    const command = Object.values(client.commandsData)[req.params.name]
+    const command = client.commands[req.params.name]
     if (!command) return res.redirect('/commands')
     res.render('command', { command });
 });
