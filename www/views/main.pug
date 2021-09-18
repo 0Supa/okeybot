@@ -1,16 +1,16 @@
 doctype
 link(rel='icon' href='/static/favicon.ico' type='image/x-icon')
 link(rel='stylesheet' href='https://bootswatch.com/4/darkly/bootstrap.min.css')
-script(src="https://code.jquery.com/jquery-3.5.1.min.js")
+script(src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js")
+script(src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js")
+
 style(type="text/css").
   .navbarImage { width: 1.7rem; height: 1.7rem; } .accessBadge { width: 25px; height: 25px; } th, td { padding: 0.5em !important; background-color: rgba(145, 145, 145, 0.1) !important; color: #fff !important; } th { background-color: black !important; padding: 15px !important; } tr:nth-child(even){ background-color: rgba(145, 145, 145, 0.1); } table { min-width: 500px !important; max-width: 1000px; border-spacing: 1px !important; border-collapse: separate !important; } .form-control { color: black !important; background-color: #e3e3e3 !important; outline: none !important; border: 1px solid #7d7d7d !important; border-radius: 4px !important; } .center { display: table; margin: 0 auto; } body { color: #ababab; }
 nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
   a.navbar-brand(href='/')
     img(src='https://cdn.frankerfacez.com/emoticon/275054/1' class='navbarImage' alt='Okey')
     | BOT
-  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarColor02' aria-controls='navbarColor02' aria-expanded='false' aria-label='Toggle navigation')
-    span.navbar-toggler-icon
-  #navbarColor02.collapse.navbar-collapse
+  #navbarColor02
     ul.navbar-nav.mr-auto
       li.nav-item
         a.nav-link(href='/commands') Commands
@@ -20,4 +20,5 @@ nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
         a.nav-link(href='/stats') Stats
       li.nav-item
         a.nav-link(href='/api') API
+div(class='mt-2')
 block content
