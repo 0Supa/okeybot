@@ -34,7 +34,7 @@ block content
                                 tr
                                     td #{command.name}
                                     if command.aliases
-                                        td #{command.aliases.join(', ') || ''}
+                                        td #{command.aliases.join(', ')}
                                     else
                                         td
                                     td #{command.description}
@@ -45,4 +45,4 @@ block content
                                         td
                                     td #{command.cooldown} seconds
                                     td
-                                        a(href="/commands/" + encodeURIComponent(command.name) target="_blank") info📄
+                                        a(href=`/commands/${encodeURIComponent(command.name)}` target="_blank") info📄
