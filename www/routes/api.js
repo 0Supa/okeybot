@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/cmdlist", async (req, res) => {
-    res.json(JSON.parse((await utils.redis.get(`ob:help`))))
+    res.json(client.commandsData)
 })
 
 router.get("/stats", async (req, res) => {
