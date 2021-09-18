@@ -8,13 +8,11 @@ router.get('/', (req, res) => {
 })
 
 router.get('/commands', async (req, res) => {
-    const commands = JSON.parse((await utils.redis.get(`ob:help`)))
-    res.render('commands', { commands });
+    res.render('commands', { commands: client.commandsData });
 });
 
 router.get('/commands/:name', async (req, res) => {
-    const commands = JSON.parse((await utils.redis.get(`ob:help`)))
-    const command = commands[req.params.name]
+    const command = Object.values(client.commandsData)[req.params.name]
     if (!command) return res.redirect('/commands')
     res.render('command', { command });
 });
