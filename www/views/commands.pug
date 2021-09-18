@@ -2,34 +2,47 @@ extends main
 
 block content
     title Commands - Okey bot
-    div(class="center")
-    each val, key in commands
-        br
-        h1 #{key.toUpperCase()} 
-        table(id="table")
-            thead
-                tr
-                    th Name
-                    th Aliases
-                    th Description
-                    th Access
-                    th Cooldown
-                    th
-                        img(src="https://cdn.frankerfacez.com/emoticon/218530/1")
-            tbody
-                for command in val
-                    tr
-                        td #{command.name}
-                        if command.aliases
-                            td #{command.aliases.join(', ') || ''}
-                        else
-                            td
-                        td #{command.description}
-                        if command.accessBadge
-                            td(style="text-align:center")
-                                img(src=command.accessBadge class='accessBadge')
-                        else
-                            td
-                        td #{command.cooldown} seconds
-                        td
-                            a(href="/commands/" + encodeURIComponent(command.name)) info📄
+
+    ul.nav.nav-tabs(style="justify-content: center;")
+      li.nav-item
+        a.nav-link(data-bs-toggle='tab' href='#fun') Fun
+      li.nav-item
+        a.nav-link(data-bs-toggle='tab' href='#utility') Utility
+      li.nav-item
+        a.nav-link(data-bs-toggle='tab' href='#bot') Bot
+
+    #content.tab-content
+        div(class="tab-pane fade show active" id=key)
+            div(class="center mt-2")
+                h3 Select a category to show help
+
+        each val, key in commands
+            div(class="tab-pane fade" id=key)
+                div(class="center mt-2")
+                    table(id="table")
+                        thead
+                            tr
+                                th Name
+                                th Aliases
+                                th Description
+                                th Access
+                                th Cooldown
+                                th
+                                    img(src="https://cdn.frankerfacez.com/emoticon/218530/1")
+                        tbody
+                            for command in val
+                                tr
+                                    td #{command.name}
+                                    if command.aliases
+                                        td #{command.aliases.join(', ') || ''}
+                                    else
+                                        td
+                                    td #{command.description}
+                                    if command.accessBadge
+                                        td(style="text-align:center")
+                                            img(src=command.accessBadge class='accessBadge')
+                                    else
+                                        td
+                                    td #{command.cooldown} seconds
+                                    td
+                                        a(href="/commands/" + encodeURIComponent(command.name) target="_blank") info📄
