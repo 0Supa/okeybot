@@ -31,8 +31,7 @@ router.get('/channel', async (req, res) => {
 });
 
 router.get('/stats', async (req, res) => {
-    const data = await utils.query(`SELECT COUNT(id) As query FROM channels
-    UNION SELECT issued_commands FROM data`)
-    res.render('stats', { channelCount: data[0].query, uptime: utils.humanize(client.connectedAt), issuedCommands: client.issuedCommands, ALLissuedCommands: data[1].query, commands: Object.keys(client.commands).length, ram: Math.round(process.memoryUsage().rss / 1024 / 1024) });
+    const data = (await utils.query(`SELECT issued_commands FROM data`))[0]
+    res.render('stats', { channelCount: Object.keys(client.userStateTracker.channelStates).length, uptime: utils.humanize(client.connectedAt), issuedCommands: client.issuedCommands, ALLissuedCommands: data.issued_commands, commands: Object.keys(client.commands).length, ram: Math.round(process.memoryUsage().rss / 1024 / 1024) });
 });
 module.exports = router;
