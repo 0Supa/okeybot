@@ -3,6 +3,9 @@ extends main
 block content
     title Commands - Okey bot
     div(class="center")
+    each val, key in commands
+        br
+        h1 #{key} 
         table(id="table")
             thead
                 tr
@@ -14,11 +17,11 @@ block content
                     th
                         img(src="https://cdn.frankerfacez.com/emoticon/218530/1")
             tbody
-                for command in commands
+                for command in val
                     tr
                         td #{command.name}
                         if command.aliases
-                            td #{command.aliases}
+                            td #{command.aliases.join(', ') || ''}
                         else
                             td
                         td #{command.description}
@@ -29,4 +32,4 @@ block content
                             td
                         td #{command.cooldown} seconds
                         td
-                            a(href="/commands/" + command.nameEncoded) info📄
+                            a(href="/commands/" + #{encodeURIComponent(command.name)} info📄
