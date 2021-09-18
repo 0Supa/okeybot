@@ -5,7 +5,7 @@ block content
     div(class="center")
     each val, key in commands
         br
-        h1 #{key} 
+        h1 #{key.toUpperCase()} 
         table(id="table")
             thead
                 tr
@@ -32,4 +32,4 @@ block content
                             td
                         td #{command.cooldown} seconds
                         td
-                            a(href="/commands/" + #{encodeURIComponent(command.name)} info📄
+                            a(href="/commands/" + encodeURIComponent(command.name)) info📄
