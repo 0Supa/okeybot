@@ -22,6 +22,7 @@ router.get('/channels', async (req, res) => {
 });
 
 router.get('/channel', async (req, res) => {
+    if (!req.query.username) return res.render('channels', { error: 'No channel name specified :\\' });
     const channel = (await utils.query(`SELECT id, platform_id AS TwitchId, login, prefix, added FROM channels WHERE login=?`, [req.query.username]))[0]
     if (!channel) return res.render('channels', { error: 'Channel not found' });
     const date = new Date(channel.added)
