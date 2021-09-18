@@ -3,10 +3,10 @@ block content
     title Channels - Okey bot
     div(class="center")
         h5 Enter a channel name in which the bot is active to see some basic stats
-        form(action='/channel' method='GET')
-            img(src='https://cdn.betterttv.net/emote/5d0ae0d1aae4851c803d4710/2x')
-            input(name='username' type='text' placeholder='Channel name' required)
-            input(type="submit" value="🔍")
+        img(src='https://cdn.betterttv.net/emote/5d0ae0d1aae4851c803d4710/2x')
+        form(action='/channel' method='GET' class="d-flex")
+            input(name='username' type='text' placeholder='Channel name' class='form-control' style='max-width: 250px;' required)
+            input(type="submit" class='btn btn-primary' value="🔍")
         if error 
             p 
                 b
