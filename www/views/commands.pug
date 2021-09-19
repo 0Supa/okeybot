@@ -10,18 +10,11 @@ block content
           a.nav-link(data-bs-toggle='tab' href='#utility') Utility
         li.nav-item
           a.nav-link(data-bs-toggle='tab' href='#bot') Bot
-        li.nav-item
-          a.nav-link(data-bs-toggle='tab' href='#sus')
-            img(src="https://cdn.betterttv.net/emote/60424899306b602acc597664/1x")
 
     #content.tab-content
         div(class="tab-pane fade show active")
             div(class="center mt-2")
                 h3 Select a category to show help
-
-        div(class="tab-pane fade" id="sus")
-                div(class="center mt-2")
-                    img(src="https://cdn.7tv.app/emote/60aefb3f84a2b8e655cec573/4x")
 
         each val, key in commands
             div(class="tab-pane fade" id=key)
