@@ -30,7 +30,16 @@ router.get('/channel', async (req, res) => {
 });
 
 router.get('/stats', async (req, res) => {
-    const data = (await utils.query(`SELECT issued_commands FROM data`))[0]
-    res.render('stats', { channelCount: Object.keys(client.userStateTracker.channelStates).length, uptime: utils.humanize(client.connectedAt), issuedCommands: client.issuedCommands, ALLissuedCommands: data.issued_commands, commands: Object.keys(client.commands).length, ram: Math.round(process.memoryUsage().rss / 1024 / 1024) });
+    const { issuedCommands } = (await utils.query(`SELECT issued_commands AS issuedCommands FROM data`))[0]
+    const { gb, rows } = (await utils.query("SELECT ((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024 / 1024) AS `gb`, TABLE_ROWS AS `rows` FROM information_schema.TABLES WHERE TABLE_NAME = 'messages'"))[0]
+
+    res.render('stats', {
+        channelCount: Object.keys(client.userStateTracker.channelStates).length,
+        uptime: utils.humanize(client.connectedAt),
+        issuedCommands: { lr: client.issuedCommands, all: issuedCommands },
+        commands: client.knownCommands.length,
+        ram: Math.round(process.memoryUsage().rss / 1024 / 1024),
+        messages: { logged: rows, size: gb.toFixed(3) }
+    });
 });
 module.exports = router;
