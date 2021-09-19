@@ -43,7 +43,7 @@ router.get('/stats', async (req, res) => {
         ram: Math.round(process.memoryUsage().rss / 1024 / 1024),
         messages: { logged: utils.formatNumber(rows), size: gb.toFixed(3) },
         dbUptime,
-        dbQueries,
+        dbQueries: utils.formatNumber(dbQueries),
         qps: (dbQueries / dbUptime).toFixed(3),
         redisKeys: (await utils.redis.dbsize()),
         pubsub: require('../../lib/misc/pubsub.js').connections.length
