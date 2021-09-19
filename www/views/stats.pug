@@ -17,7 +17,13 @@ block content
                 td #{channelCount}
             tr 
                 td Issued commands since last bot restart
-                td #{issuedCommands}
+                td #{issuedCommands.lr}
             tr 
                 td All ever issued commands
-                td #{ALLissuedCommands}
+                td #{issuedCommands.all}
+            tr 
+                td Logged messages 
+                td ~#{messages.logged}
+            tr 
+                td Logged messages size 
+                td #{messages.size} GB
