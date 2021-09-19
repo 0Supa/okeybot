@@ -46,7 +46,7 @@ router.get('/stats', async (req, res) => {
         dbQueries,
         qps: (dbQueries / dbUptime).toFixed(3),
         redisKeys: (await utils.redis.dbsize()),
-        pubsub: require('../misc/pubsub.js').connections.length
+        pubsub: require('../../lib/misc/pubsub.js').connections.length
     });
 });
 module.exports = router;
