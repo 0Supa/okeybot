@@ -13,8 +13,9 @@ block content
 
     #content.tab-content
         div(class="tab-pane fade show active")
-            div(class="center mt-2")
+            div(class="center mt-2" style="display: flex; align-items: center; justify-content: center;")
                 h3 Select a category to show help
+                img(src="https://cdn.betterttv.net/emote/6105dfe62d1eba5400d2b603/2x")
 
         each val, key in commands
             div(class="tab-pane fade" id=key)
