@@ -42,7 +42,7 @@ router.get('/stats', async (req, res) => {
         commands: client.knownCommands.length,
         ram: Math.round(process.memoryUsage().rss / 1024 / 1024),
         messages: { logged: utils.formatNumber(rows), size: gb.toFixed(3) },
-        dbUptime,
+        dbUptime: utils.humanizeMS(dbUptime * 1000),
         dbQueries: utils.formatNumber(dbQueries),
         qps: (dbQueries / dbUptime).toFixed(3),
         redisKeys: (await utils.redis.dbsize()),
