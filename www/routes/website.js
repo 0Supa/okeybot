@@ -32,6 +32,8 @@ router.get('/channel', async (req, res) => {
 router.get('/stats', async (req, res) => {
     const { issuedCommands } = (await utils.query(`SELECT issued_commands AS issuedCommands FROM data`))[0]
     const { gb, rows } = (await utils.query("SELECT ((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024 / 1024) AS `gb`, TABLE_ROWS AS `rows` FROM information_schema.TABLES WHERE TABLE_NAME = 'messages'"))[0]
+    const dbUptime = (await utils.query(`SELECT variable_value FROM information_schema.global_status WHERE variable_name='Uptime'`))[0].variable_value
+    const dbQueries = (await utils.query(`SELECT variable_value FROM information_schema.global_status WHERE variable_name = 'Questions'`))[0].variable_value
 
     res.render('stats', {
         channelCount: Object.keys(client.userStateTracker.channelStates).length,
@@ -39,7 +41,12 @@ router.get('/stats', async (req, res) => {
         issuedCommands: { lr: utils.formatNumber(client.issuedCommands), all: utils.formatNumber(issuedCommands) },
         commands: client.knownCommands.length,
         ram: Math.round(process.memoryUsage().rss / 1024 / 1024),
-        messages: { logged: utils.formatNumber(rows), size: gb.toFixed(3) }
+        messages: { logged: utils.formatNumber(rows), size: gb.toFixed(3) },
+        dbUptime,
+        dbQueries,
+        qps: (dbQueries / dbUptime).toFixed(3),
+        redisKeys: (await utils.redis.dbsize()),
+        pubsub: require('../misc/pubsub.js').connections.length
     });
 });
 module.exports = router;
