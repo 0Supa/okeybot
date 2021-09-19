@@ -4,8 +4,11 @@ block content
     div(class="center")
         table
             tr 
-                td Uptime 
+                td Bot Uptime 
                 td #{uptime}
+            tr 
+                td Database Uptime 
+                td #{dbUpime}
             tr 
                 td RAM Usage 
                 td #{ram}mb
@@ -27,3 +30,12 @@ block content
             tr 
                 td Logged messages size 
                 td #{messages.size} GB
+            tr 
+                td Queries since last db restart 
+                td #{dbQueries}
+            tr 
+                td Queries per second 
+                td #{qps}
+            tr 
+                td PubSub connections 
+                td #{pubsub}
