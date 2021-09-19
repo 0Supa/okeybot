@@ -5,7 +5,7 @@ block content
         h5 Enter a channel name in which the bot is active to see some basic stats
         img(src='https://cdn.betterttv.net/emote/5d0ae0d1aae4851c803d4710/2x')
         form(action='/channel' method='GET' class="d-flex")
-            input(name='username' type='text' placeholder='Channel name' class='form-control' style='max-width: 250px;' required)
+            input(name='username' type='text' placeholder='Channel name' class='form-control' style='max-width: 250px;' autofocus required)
             input(type="submit" class='btn btn-primary' value="🔍")
         if error 
             p 
