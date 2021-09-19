@@ -34,6 +34,7 @@ router.get('/stats', async (req, res) => {
     const { gb, rows } = (await utils.query("SELECT ((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024 / 1024) AS `gb`, TABLE_ROWS AS `rows` FROM information_schema.TABLES WHERE TABLE_NAME = 'messages'"))[0]
     const dbUptime = (await utils.query(`SELECT variable_value FROM information_schema.global_status WHERE variable_name='Uptime'`))[0].variable_value
     const dbQueries = (await utils.query(`SELECT variable_value FROM information_schema.global_status WHERE variable_name = 'Questions'`))[0].variable_value
+    const { connections, topics } = require('../../lib/misc/pubsub.js')
 
     res.render('stats', {
         channelCount: Object.keys(client.userStateTracker.channelStates).length,
@@ -46,7 +47,7 @@ router.get('/stats', async (req, res) => {
         dbQueries: utils.formatNumber(dbQueries),
         qps: (dbQueries / dbUptime).toFixed(3),
         redisKeys: (await utils.redis.dbsize()),
-        pubsub: require('../../lib/misc/pubsub.js').connections.length
+        pubsub: { connections: connections.length, topics: topics.length }
     });
 });
 module.exports = router;
