@@ -36,10 +36,10 @@ router.get('/stats', async (req, res) => {
     res.render('stats', {
         channelCount: Object.keys(client.userStateTracker.channelStates).length,
         uptime: utils.humanize(client.connectedAt),
-        issuedCommands: { lr: client.issuedCommands, all: issuedCommands },
+        issuedCommands: { lr: utils.formatNumber(client.issuedCommands), all: utils.formatNumber(issuedCommands) },
         commands: client.knownCommands.length,
         ram: Math.round(process.memoryUsage().rss / 1024 / 1024),
-        messages: { logged: rows, size: gb.toFixed(3) }
+        messages: { logged: utils.formatNumber(rows), size: gb.toFixed(3) }
     });
 });
 module.exports = router;
