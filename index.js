@@ -118,11 +118,9 @@ client.on("PRIVMSG", async (msg) => {
 
 client.on("JOIN", ({ channelName }) => {
     logger.info(`Joined ${channelName}`)
-    client.roomStateTracker.channelStates[channelName].parted = false
 });
 
 client.on("PART", ({ channelName }) => {
     logger.info(`Parted ${channelName}`)
-    client.roomStateTracker.channelStates[channelName].parted = true
     client.part(channelName)
 });
