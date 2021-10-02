@@ -123,4 +123,5 @@ client.on("JOIN", ({ channelName }) => {
 client.on("PART", ({ channelName }) => {
     logger.info(`Parted ${channelName}`)
     client.part(channelName)
+    client.userStateTracker.channelStates[channelName].parted = true
 });
