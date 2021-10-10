@@ -120,7 +120,7 @@ client.on("PRIVMSG", async (msg) => {
 client.on('WHISPER', async (msg) => {
     const args = msg.messageText.split(' ')
 
-    if (args.length < 1 && args[0] !== 'spotify') return
+    if (args.length < 1 || args[0] !== 'spotify') return
 
     const code = await utils.redis.get(`ob:auth:spotify:code:${args[1]}`)
     if (!code) return await client.whisper(msg.senderUsername, `Error: Invalid or expired Authorization ID`)
