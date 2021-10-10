@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const utils = require("../../lib/utils/utils.js");
 const { nanoid } = require('nanoid')
-const scope = 'user-read-currently-playing';
+const scope = 'user-read-currently-playing user-read-recently-played';
 const redirectUri = `${config.website.url}/auth/spotify/callback`
 
 router.get('/spotify/login', (req, res) => {
