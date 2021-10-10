@@ -1,0 +1,19 @@
+extends main
+
+block content
+    script.
+        function copy() {
+            var copyText = document.getElementById("code");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+        }
+
+    div(class="center")
+        h5 Whisper okey_bot this message to link the Spotify account to your Twitch account
+        div(style="display: flex; justify-content: center;")
+            input(class="form-control" id="code" type="text" value=text readonly)
+            button(type="button" class="btn btn-primary" onclick="copy()") Copy
+        p You can do this by typing 
+            code /w okey_bot #{text}
+            |  in any chat

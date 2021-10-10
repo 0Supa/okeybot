@@ -4,11 +4,13 @@ const express = require('express')
 const app = express()
 const website = require("./routes/website");
 const api = require("./routes/api");
+const auth = require("./routes/auth");
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 app.use(website)
 app.use('/api', api)
+app.use('/auth', auth)
 app.use('/static', express.static(`${__dirname}/static`))
 
 app.use(function (req, res, next) {

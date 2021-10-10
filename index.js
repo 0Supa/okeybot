@@ -2,6 +2,7 @@ const Twitch = require('dank-twitch-irc');
 
 const utils = require('./lib/utils/utils.js');
 const { logger } = require('./lib/utils/logger.js')
+const spotify = require('./lib/utils/spotify.js')
 
 const config = require('./config.json')
 
@@ -115,6 +116,28 @@ client.on("PRIVMSG", async (msg) => {
 
     handle(msgData)
 })
+
+client.on('WHISPER', async (msg) => {
+    const args = msg.messageText.split(' ')
+
+    if (args.length < 1 && args[0] !== 'spotify') return
+
+    const code = await utils.redis.get(`ob:auth:spotify:code:${args[1]}`)
+    if (!code) return await client.whisper(msg.senderUsername, `Error: Invalid or expired Authorization ID`)
+
+    let { body, statusCode } = await spotify.token({
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri: `${config.website.url}/auth/spotify/callback`
+    })
+
+    if (statusCode !== 200) return await client.whisper(msg.senderUsername, `Spotify Error: ${body.error_description || body.error || 'unknown error'}`)
+
+    body.timestamp = Date.now()
+    await utils.redis.set(`ob:auth:spotify:${msg.senderUserID}`, JSON.stringify(body))
+
+    await client.whisper(msg.senderUsername, `Your spotify account has been successfully linked`)
+});
 
 client.on("JOIN", ({ channelName }) => {
     logger.info(`Joined ${channelName}`)

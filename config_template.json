@@ -30,6 +30,10 @@
       "pass": "",
       "name": "Database Name",
       "connectionLimit": 50
+    },
+    "spotify": {
+      "clientId": "",
+      "clientSecret": ""
     }
   },
   "website": {
