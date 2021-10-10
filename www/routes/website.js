@@ -50,4 +50,9 @@ router.get('/stats', async (req, res) => {
         pubsub: { connections: connections.length, topics: topics.length }
     });
 });
+
+router.get('/spotify', async (req, res) => {
+    res.render('spotify');
+});
+
 module.exports = router;
