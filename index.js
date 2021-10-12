@@ -3,6 +3,7 @@ const Twitch = require('dank-twitch-irc');
 const utils = require('./lib/utils/utils.js');
 const { logger } = require('./lib/utils/logger.js')
 const spotify = require('./lib/utils/spotify.js')
+const cooldown = require('./lib/utils/cooldown.js')
 
 const config = require('./config.json')
 
@@ -50,7 +51,11 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
 
         case 'no_permission': {
             logger.error(`no permission from ${channelName} -> ${messageText}`);
-            await client.say(channelName, 'I have no permission to perform that action');
+
+            if (!cooldown.has(`${msg.channel.id}:permission`)) {
+                cooldown.set(`${msg.channel.id}:permission`, 30000)
+                await client.say(channelName, 'I have no permission to perform that action');
+            }
             break;
         }
 
