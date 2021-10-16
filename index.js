@@ -70,14 +70,6 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
             logger.info(`${channelName} is suspended`);
             break;
         }
-
-        case 'host_on':
-        case 'bad_delete_message_mod':
-        case 'host_target_went_offline':
-            break;
-
-        default:
-            logger.info(`notice ${messageID} in channel ${channelName} -> ${messageText}`);
     }
 });
 
