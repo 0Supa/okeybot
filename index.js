@@ -120,7 +120,8 @@ client.on('WHISPER', async (msg) => {
     if (args.length < 1 || args[0] !== 'spotify') return
 
     const code = await utils.redis.get(`ob:auth:spotify:code:${args[1]}`)
-    if (!code) return await client.whisper(msg.senderUsername, `Error: Invalid or expired Authorization ID`)
+    if (!code) return await client.whisper(msg.senderUsername, `Error: Invalid or expired Authorization Code`)
+    await utils.redis.del(`ob:auth:spotify:code:${args[1]}`)
 
     let { body, statusCode } = await spotify.token({
         grant_type: 'authorization_code',
