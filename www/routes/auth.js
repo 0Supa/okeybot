@@ -20,9 +20,14 @@ router.get('/spotify/callback', async (req, res) => {
         return
     }
 
-    const id = nanoid()
-
-    await utils.redis.set(`ob:auth:spotify:code:${id}`, code, 'EX', 600)
+    let id = await utils.redis.get(code)
+    if (!id) {
+        id = nanoid()
+        await Promise.all([
+            utils.redis.set(`ob:auth:spotify:code:${id}`, code, 'EX', 600),
+            utils.redis.set(code, id, 'EX', 600)
+        ])
+    }
 
     res.render('code', {
         text: `spotify ${id}`
