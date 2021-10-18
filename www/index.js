@@ -28,5 +28,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(config.website.port, () => {
-    logger.info(`listening on ${config.website.port}`)
+    logger.info(`WWW listening on ${config.website.port}`)
 })

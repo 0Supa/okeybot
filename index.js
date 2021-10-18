@@ -17,7 +17,7 @@ const pubsub = require('./lib/misc/pubsub.js')
 const stv = require('./lib/misc/stv-ev.js')
 
 client.on("ready", async () => {
-    logger.info("Connected to chat");
+    logger.info("TMI Connected");
     client.connectedAt = new Date()
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
     await client.joinAll(channels)
