@@ -112,6 +112,8 @@ client.on("PRIVMSG", async (msg) => {
     }
 
     handle(msgData)
+    if (msgData.user.login === 'pajbot' && msgData.text === 'pajaS 🚨 ALERT') msgData.send('dankS 🚨')
+    if (msgData.channel.login === 'supinic' && msgData.user.login === 'supibot' && msgData.text === 'ppCircle') msgData.send('ppAutismo')
 })
 
 client.on('WHISPER', async (msg) => {
