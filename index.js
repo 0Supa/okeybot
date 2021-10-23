@@ -15,6 +15,7 @@ const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
 const stv = require('./lib/misc/stv-ev.js')
+const twitter = require('./lib/misc/twitter.js')
 
 client.on("ready", async () => {
     logger.info("TMI Connected");
@@ -24,6 +25,7 @@ client.on("ready", async () => {
     logger.info("Joined all channels")
     pubsub.init()
     stv.connect()
+    twitter.connect()
     utils.supinicAPIping()
     setInterval(utils.supinicAPIping, 600000)
     client.say(config.bot.login, 'AlienPls')
