@@ -37,6 +37,10 @@
     },
     "twitter": {
       "bearer": ""
+    },
+    "uberduck": {
+      "key": "",
+      "secret": ""
     }
   },
   "website": {
