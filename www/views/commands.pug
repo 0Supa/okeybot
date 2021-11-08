@@ -34,10 +34,7 @@ block content
                             for command in val
                                 tr
                                     td #{command.name}
-                                    if command.aliases
-                                        td #{command.aliases.join(', ')}
-                                    else
-                                        td
+                                    td #{command.aliases.join(', ')}
                                     td #{command.description}
                                     if command.accessBadge
                                         td(style="text-align:center")
