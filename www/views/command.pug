@@ -9,7 +9,7 @@ block content
             tr 
                 td Aliases 
                 if command.aliases.length
-                    td #{command.aliases}
+                    td #{command.aliases.join(', ')}
                 else 
                     td N/A
             tr
