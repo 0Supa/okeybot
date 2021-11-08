@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const utils = require("../../lib/utils/utils.js");
 const { client } = require("../../lib/misc/connections.js");
+const commands = require("../../lib/misc/commands.js");
 
 router.get('/', (req, res) => {
     res.render('index')
@@ -12,7 +13,7 @@ router.get('/commands', async (req, res) => {
 });
 
 router.get('/commands/:name', async (req, res) => {
-    const command = client.commands[req.params.name]
+    const command = commands.get(req.params.name.toLowerCase())
     if (!command) return res.redirect('/commands')
     res.render('command', { command });
 });
