@@ -97,6 +97,7 @@ client.on("PRIVMSG", async (msg) => {
         'raw': msg.rawSource,
         'text': msg.messageText,
         'timestamp': msg.serverTimestampRaw,
+        'emotes': msg.emotes,
         'tags': msg.ircTags,
 
         send: async function (message) {
