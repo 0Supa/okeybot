@@ -16,6 +16,8 @@ const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
 const stv = require('./lib/misc/stv-ev.js')
 
+setInterval(utils.supinicAPIping, 600000)
+
 client.on("ready", async () => {
     logger.info("TMI Connected");
     client.connectedAt = new Date()
@@ -24,8 +26,6 @@ client.on("ready", async () => {
     logger.info("Joined all channels")
     pubsub.init()
     stv.connect()
-    utils.supinicAPIping()
-    setInterval(utils.supinicAPIping, 600000)
     client.say(config.bot.login, 'AlienPls')
 });
 
