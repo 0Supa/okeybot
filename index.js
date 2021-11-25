@@ -4,6 +4,7 @@ const utils = require('./lib/utils/utils.js');
 const { logger } = require('./lib/utils/logger.js')
 const spotify = require('./lib/utils/spotify.js')
 const cooldown = require('./lib/utils/cooldown.js')
+const regex = require('./lib/utils/regex.js')
 
 const config = require('./config.json')
 
@@ -111,7 +112,10 @@ client.on("PRIVMSG", async (msg) => {
         send: async function (message) {
             try {
                 message = utils.fitText(message, 490)
+
+                if (regex.racism.test(this.text)) return await client.say(this.channel.login, `${this.user.name}, the reply message violates an internal banphrase`)
                 if (this.channel.query.pajbotAPI) message = await banphraseCheck(message, this.channel.query.pajbotAPI)
+
                 await client.say(this.channel.login, message)
             } catch (e) {
                 if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) return await this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
