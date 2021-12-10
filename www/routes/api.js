@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const utils = require("../../lib/utils/utils.js");
 const { client } = require('../../lib/misc/connections.js')
-const got = require('got')
+import got from 'got'
 
 router.get("/", (req, res) => {
     res.render('api');
