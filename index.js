@@ -59,8 +59,8 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
         case 'no_permission': {
             logger.error(`no permission from ${channelName} -> ${messageText}`);
 
-            if (!cooldown.has(`${msg.channel.id}:permission`)) {
-                cooldown.set(`${msg.channel.id}:permission`, 30000)
+            if (!cooldown.has(`${channelName}:permission`)) {
+                cooldown.set(`${channelName}:permission`, 30000)
                 await client.say(channelName, 'I have no permission to perform that action');
             }
             break;
