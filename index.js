@@ -31,7 +31,7 @@ client.on("ready", async () => {
     logger.info("Joined all channels")
 
     pubsub.init()
-    stv.connect()
+    stv.init()
 
     client.say(config.bot.login, 'AlienPls')
 });
