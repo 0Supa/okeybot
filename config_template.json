@@ -11,7 +11,7 @@
     "auth": {
         "twitch": {
             "helix": {
-                "token": "[Required scopes: chat:read, chat:edit, whispers:read, whispers:edit, moderator:manage:banned_users] Use this for generating a custom scope token -> https://twitchtokengenerator.com/",
+                "token": "[Required scopes: chat:read, chat:edit, whispers:read, whispers:edit, channel:moderate, moderator:manage:banned_users] Use this for generating a custom scope token -> https://twitchtokengenerator.com/",
                 "clientId": "^^^"
             },
             "gql": {
