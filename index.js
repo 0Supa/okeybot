@@ -61,7 +61,7 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
 
             if (!cooldown.has(`${channelName}:permission`)) {
                 cooldown.set(`${channelName}:permission`, 30000)
-                await client.say(channelName, 'I have no permission to perform that action');
+                client.say(channelName, 'I have no permission to perform that action');
             }
             break;
         }
@@ -111,12 +111,21 @@ client.on("PRIVMSG", async (msg) => {
             try {
                 message = utils.fitText(message, 490)
 
-                if (regex.racism.test(this.text)) return await client.say(this.channel.login, `${this.user.name}, the reply message violates an internal banphrase`)
+                if (regex.racism.test(this.text) && !cooldown.has(`${this.channel.id}-${this.user.id}:banphrase`)) {
+                    cooldown.set(`${this.channel.id}-${this.user.id}:banphrase`, 30000)
+                    return this.send(`${this.user.name}, the reply message violates an internal banphrase`)
+                }
+
                 if (this.channel.query.pajbotAPI) message = await banphraseCheck(message, this.channel.query.pajbotAPI)
 
                 await client.say(this.channel.login, message)
             } catch (e) {
-                if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')) return await this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
+                if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')
+                    && !cooldown.has(`${this.channel.id}-${this.user.id}:automod`)) {
+                    cooldown.set(`${this.channel.id}-${this.user.id}:automod`, 30000)
+                    return this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
+                }
+
                 console.error(`error while sending reply message in ${this.channel.login}: ${e}`);
             }
         }
