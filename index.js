@@ -23,7 +23,7 @@ client.on("ready", async () => {
     logger.info("TMI Connected");
     client.connectedAt = new Date()
 
-    const ignoredUsers = (await utils.query('SELECT user_id FROM ignoredUsers')).map(data => data.user_id)
+    const ignoredUsers = (await utils.query('SELECT user_id FROM ignored_users')).map(data => data.user_id)
     client.ignoredUsers = new Set(ignoredUsers)
 
     const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
