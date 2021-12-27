@@ -33,7 +33,10 @@ client.on("ready", async () => {
 
     for (channel of channels) {
         const userData = users.get(channel.id)
-        if (!userData) return client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
+        if (!userData) {
+            client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
+            continue
+        }
 
         if (channel.login !== userData.login) {
             await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
