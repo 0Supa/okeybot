@@ -5,6 +5,7 @@ const { logger } = require('./lib/utils/logger.js')
 const spotify = require('./lib/utils/spotify.js')
 const cooldown = require('./lib/utils/cooldown.js')
 const regex = require('./lib/utils/regex.js')
+const twitchapi = require('./lib/utils/twitchapi.js')
 
 const config = require('./config.json')
 
@@ -26,8 +27,23 @@ client.on("ready", async () => {
     const ignoredUsers = (await utils.query('SELECT user_id FROM ignored_users')).map(data => data.user_id)
     client.ignoredUsers = new Set(ignoredUsers)
 
-    const channels = (await utils.query('SELECT login FROM channels WHERE parted=?', [false])).map(channel => channel.login)
-    await client.joinAll(channels)
+    const channels = await utils.query('SELECT platform_id AS id, login FROM channels WHERE parted=?', [false])
+    const users = await twitchapi.getUsers(channels.map(channel => channel.id))
+    let tmiChannels = []
+
+    for (channel of channels) {
+        const userData = users.get(channel.id)
+        if (!userData) return client.say(`Couldn't resolve user "${channel.id} - ${channel.login}"`)
+
+        if (channel.login !== userData.login) {
+            await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
+            client.say(config.bot.login, `hackerCD Name change detected [${channel.login} => ${userData.login}]`)
+        }
+
+        tmiChannels.push(userData.login)
+    }
+
+    await client.joinAll(tmiChannels)
     logger.info("Joined all channels")
 
     pubsub.init()
