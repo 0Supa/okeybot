@@ -40,7 +40,8 @@ client.on("ready", async () => {
 
         if (channel.login !== userData.login) {
             await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
-            client.say(config.bot.login, `hackerCD Name change detected [${channel.login} => ${userData.login}]`)
+            client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${userData.login}`)
+            client.say(userData.login, `MrDestructoid Name change detected: ${channel.login} => ${userData.login}`)
         }
 
         tmiChannels.push(userData.login)
