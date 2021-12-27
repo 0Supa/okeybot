@@ -33,18 +33,17 @@ client.on("ready", async () => {
 
     for (channel of channels) {
         const userData = users.get(channel.id)
-        if (!userData) {
-            client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
-            continue
-        }
 
-        if (channel.login !== userData.login) {
-            await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
-            client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${userData.login}`)
-            client.say(userData.login, `MrDestructoid Name change detected: ${channel.login} => ${userData.login}`)
-        }
+        if (userData) {
+            if (channel.login !== userData.login) {
+                await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
+                client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${userData.login}`)
+                client.say(userData.login, `MrDestructoid Name change detected: ${channel.login} => ${userData.login}`)
+            }
 
-        tmiChannels.push(userData.login)
+            tmiChannels.push(userData.login)
+        }
+        else client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
     }
 
     await client.joinAll(tmiChannels)
