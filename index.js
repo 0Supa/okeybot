@@ -48,11 +48,11 @@ client.on("ready", async () => {
         }
 
         await client.joinAll(tmiChannels)
-        logger.info("Joined all channels")
     }
     await loadChannels()
-    setInterval(loadChannels, 1800000) // 30 minutes
+    logger.info("Joined all channels")
 
+    setInterval(loadChannels, 1800000) // 30 minutes
     pubsub.init()
     stv.init()
 
