@@ -28,7 +28,7 @@ client.on("ready", async () => {
     client.ignoredUsers = new Set(ignoredUsers)
 
     const loadChannels = async () => {
-        const channels = await utils.query('SELECT platform_id AS id, login FROM channels WHERE parted=?', [false])
+        const channels = await utils.query('SELECT platform_id AS id, login FROM channels', [false])
         const users = await twitchapi.getUsers(channels.map(channel => channel.id))
         let tmiChannels = []
 
