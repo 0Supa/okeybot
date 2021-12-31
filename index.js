@@ -90,13 +90,11 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
         }
 
         case 'msg_banned': {
-            logger.info(`Bot banned in ${channelName}`);
             await utils.query(`UPDATE channels SET bot_banned=? WHERE login=?`, [true, channelName])
             break;
         }
 
         case 'msg_channel_suspended': {
-            logger.info(`${channelName} is suspended`);
             await utils.query(`UPDATE channels SET suspended=? WHERE login=?`, [true, channelName])
             break;
         }
