@@ -90,12 +90,14 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
         }
 
         case 'msg_banned': {
-            logger.info(`bot is banned in ${channelName}`);
+            logger.info(`Bot banned in ${channelName}`);
+            await utils.query(`UPDATE channels SET bot_banned=? WHERE login=?`, [true, channelName])
             break;
         }
 
         case 'msg_channel_suspended': {
             logger.info(`${channelName} is suspended`);
+            await utils.query(`UPDATE channels SET suspended=? WHERE login=?`, [true, channelName])
             break;
         }
     }
@@ -137,7 +139,7 @@ client.on("PRIVMSG", async (msg) => {
                     return this.send(`${this.user.name}, the reply message violates an internal banphrase`)
                 }
 
-                if (this.channel.query.pajbotAPI) message = await banphraseCheck(message, this.channel.query.pajbotAPI)
+                if (this.channel.query.pajbot_api) message = await banphraseCheck(message, this.channel.query.pajbot_api)
 
                 await client.say(this.channel.login, message)
             } catch (e) {
@@ -180,11 +182,16 @@ client.on('WHISPER', async (msg) => {
     await client.whisper(msg.senderUsername, `Your spotify account has been successfully linked`)
 });
 
-client.on("JOIN", ({ channelName }) => {
+client.on("JOIN", async ({ channelName }) => {
     logger.info(`Joined ${channelName}`)
+
+    await utils.query(`UPDATE channels SET bot_banned=? WHERE login=?`, [false, channelName])
+    await utils.query(`UPDATE channels SET suspended=? WHERE login=?`, [false, channelName])
 });
 
 client.on("PART", ({ channelName }) => {
     logger.info(`Parted ${channelName}`)
+
     client.part(channelName)
+    client.join(channelName)
 });

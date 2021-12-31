@@ -40,10 +40,11 @@ CREATE TABLE IF NOT EXISTS `channels` (
   `platform_id` varchar(255) NOT NULL,
   `login` varchar(25) NOT NULL,
   `prefix` varchar(15) NOT NULL DEFAULT '?',
-  `pajbotAPI` varchar(500) DEFAULT NULL,
+  `pajbot_api` varchar(500) DEFAULT NULL,
   `logging` tinyint(4) NOT NULL DEFAULT 1,
   `added` timestamp NOT NULL DEFAULT current_timestamp(),
-  `parted` tinyint(4) NOT NULL DEFAULT 0,
+  `bot_banned` tinyint(4) NOT NULL DEFAULT 0,
+  `suspended` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `platform_id` (`platform_id`),
   UNIQUE KEY `login` (`login`)
