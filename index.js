@@ -27,7 +27,6 @@ client.on("ready", async () => {
     const ignoredUsers = (await utils.query('SELECT user_id FROM ignored_users')).map(data => data.user_id)
     client.ignoredUsers = new Set(ignoredUsers)
 
-    await loadChannels()
     const loadChannels = async () => {
         const channels = await utils.query('SELECT platform_id AS id, login FROM channels WHERE parted=?', [false])
         const users = await twitchapi.getUsers(channels.map(channel => channel.id))
@@ -51,6 +50,7 @@ client.on("ready", async () => {
         await client.joinAll(tmiChannels)
         logger.info("Joined all channels")
     }
+    await loadChannels()
     setInterval(loadChannels, 1800000) // 30 minutes
 
     pubsub.init()
