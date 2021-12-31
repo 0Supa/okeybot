@@ -192,6 +192,6 @@ client.on("JOIN", async ({ channelName }) => {
 client.on("PART", ({ channelName }) => {
     logger.info(`Parted ${channelName}`)
 
-    client.part(channelName)
+    delete client.userStateTracker.channelStates[channelName]
     client.join(channelName)
 });
