@@ -27,27 +27,31 @@ client.on("ready", async () => {
     const ignoredUsers = (await utils.query('SELECT user_id FROM ignored_users')).map(data => data.user_id)
     client.ignoredUsers = new Set(ignoredUsers)
 
-    const channels = await utils.query('SELECT platform_id AS id, login FROM channels WHERE parted=?', [false])
-    const users = await twitchapi.getUsers(channels.map(channel => channel.id))
-    let tmiChannels = []
+    await loadChannels()
+    const loadChannels = async () => {
+        const channels = await utils.query('SELECT platform_id AS id, login FROM channels WHERE parted=?', [false])
+        const users = await twitchapi.getUsers(channels.map(channel => channel.id))
+        let tmiChannels = []
 
-    for (channel of channels) {
-        const userData = users.get(channel.id)
+        for (channel of channels) {
+            const userData = users.get(channel.id)
 
-        if (userData) {
-            if (channel.login !== userData.login) {
-                await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
-                client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${userData.login}`)
-                client.say(userData.login, `MrDestructoid Name change detected: ${channel.login} => ${userData.login}`)
+            if (userData) {
+                if (channel.login !== userData.login) {
+                    await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
+                    client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${userData.login}`)
+                    client.say(userData.login, `MrDestructoid Name change detected: ${channel.login} => ${userData.login}`)
+                }
+
+                tmiChannels.push(userData.login)
             }
-
-            tmiChannels.push(userData.login)
+            else client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
         }
-        else client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
-    }
 
-    await client.joinAll(tmiChannels)
-    logger.info("Joined all channels")
+        await client.joinAll(tmiChannels)
+        logger.info("Joined all channels")
+    }
+    setInterval(loadChannels, 1800000) // 30 minutes
 
     pubsub.init()
     stv.init()
