@@ -28,11 +28,12 @@ client.on("ready", async () => {
     client.ignoredUsers = new Set(ignoredUsers)
 
     const loadChannels = async () => {
-        const channels = await utils.query('SELECT platform_id AS id, login FROM channels', [false])
+        const channels = await utils.query('SELECT platform_id AS id, login, suspended FROM channels', [false])
         const users = await twitchapi.getUsers(channels.map(channel => channel.id))
         let tmiChannels = []
 
         for (channel of channels) {
+            if (channel.suspended) return
             const userData = users.get(channel.id)
 
             if (userData) {
@@ -43,8 +44,10 @@ client.on("ready", async () => {
                 }
 
                 tmiChannels.push(userData.login)
+            } else {
+                await utils.query(`UPDATE channels SET suspended=? WHERE platform_id=?`, [true, channel.id])
+                client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
             }
-            else client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
         }
 
         await client.joinAll(tmiChannels)
