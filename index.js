@@ -33,7 +33,7 @@ client.on("ready", async () => {
         let tmiChannels = []
 
         for (channel of channels) {
-            if (channel.suspended) return
+            if (channel.suspended) { continue; }
             const userData = users.get(channel.id)
 
             if (userData) {
