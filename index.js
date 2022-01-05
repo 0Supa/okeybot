@@ -28,12 +28,16 @@ client.on("ready", async () => {
     client.ignoredUsers = new Set(ignoredUsers)
 
     const loadChannels = async () => {
-        const channels = await utils.query('SELECT platform_id AS id, login, suspended FROM channels', [false])
+        const channels = await utils.query('SELECT platform_id AS id, login, suspended FROM channels')
         const users = await twitchapi.getUsers(channels.map(channel => channel.id))
         let tmiChannels = []
 
         for (channel of channels) {
-            if (channel.suspended) { continue; }
+            if (channel.suspended) {
+                tmiChannels.push(channel.login)
+                continue;
+            }
+
             const userData = users.get(channel.id)
 
             if (userData) {
