@@ -18,4 +18,4 @@ or you can use the **?suggest** command followed by the suggestion in the [bot's
 - `cd okeybot`
 - `npm install`
 - make a copy of `config_template.json` named `config.json` and add your credentials into it
-- **the bot requires a database, you'll either need to create a MariaDB Database and import the tables from the [schema](schema.sql), or ajust the code yourself**
+- **the bot requires a database, you'll either need to create a MariaDB Database and import the tables from the [schema](schema.sql), or adjust the code yourself**
