@@ -38,16 +38,21 @@ client.on("ready", async () => {
                 continue;
             }
 
-            const userData = users.get(channel.id)
+            const newUser = users.get(channel.id)
 
-            if (userData) {
-                if (channel.login !== userData.login) {
-                    await utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [userData.login, channel.id])
-                    client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${userData.login}`)
-                    client.say(userData.login, `MrDestructoid Name change detected: ${channel.login} => ${userData.login}`)
+            if (newUser) {
+                if (channel.login !== newUser.login) {
+                    await Promise.all([
+                        utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [newUser.login, channel.id]),
+                        utils.query(`UPDATE notify_channels SET login=? WHERE user_id=?`, [newUser.login, channel.id]),
+                        utils.query(`UPDATE 7tv_updates SET login=? WHERE login=?`, [newUser.login, channel.login])
+                    ])
+
+                    client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${newUser.login}`)
+                    client.say(newUser.login, `MrDestructoid Name change detected: ${channel.login} => ${newUser.login}`)
                 }
 
-                tmiChannels.push(userData.login)
+                tmiChannels.push(newUser.login)
             } else {
                 await utils.query(`UPDATE channels SET suspended=? WHERE platform_id=?`, [true, channel.id])
                 client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
