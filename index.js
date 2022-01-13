@@ -16,7 +16,7 @@ const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
-const stv = require('./lib/misc/stv-ev.js')
+const stv = require('./lib/misc/7tvSocket.js')
 
 setInterval(utils.supinicAPIping, 600000)
 
