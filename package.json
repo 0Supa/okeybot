@@ -15,7 +15,7 @@
     "humanize-duration": "^3.27.0",
     "install": "^0.13.0",
     "ioredis": "^4.27.6",
-    "mariadb": "^2.5.3",
+    "mariadb": "^3.0.0",
     "moment": "^2.29.1",
     "ms": "^2.0.0",
     "nanoid": "^3.1.29",
