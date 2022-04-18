@@ -195,6 +195,7 @@ client.on('WHISPER', async (msg) => {
 
 client.on("JOIN", async ({ channelName }) => {
     logger.info(`Joined ${channelName}`)
+    client.joinedChannels.add(channelName)
 
     await utils.query(`UPDATE channels SET bot_banned=? WHERE login=?`, [false, channelName])
     await utils.query(`UPDATE channels SET suspended=? WHERE login=?`, [false, channelName])
@@ -203,4 +204,5 @@ client.on("JOIN", async ({ channelName }) => {
 client.on("PART", ({ channelName }) => {
     logger.info(`Parted ${channelName}`)
     client.part(channelName)
+    client.joinedChannels.delete(channelName)
 });
