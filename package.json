@@ -9,7 +9,7 @@
     "dank-twitch-irc": "^4.3.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
-    "got": "^11.8.2",
+    "got": "^12.0.4",
     "http": "^0.0.1-security",
     "humanize-duration": "^3.27.0",
     "install": "^0.13.0",
