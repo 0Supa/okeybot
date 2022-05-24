@@ -60,7 +60,9 @@ client.on("ready", async () => {
             }
         }
 
-        await client.joinAll(tmiChannels)
+        for (const channel of tmiChannels) {
+            if (!client.joinedChannels.has(channel)) client.join(channel)
+        }
     }
     await loadChannels()
     logger.info("Joined all channels")
