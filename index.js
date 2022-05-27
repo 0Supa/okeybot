@@ -170,6 +170,7 @@ client.on("PRIVMSG", async (msg) => {
     handle(msgData)
     if (msgData.user.login === 'pajbot' && msgData.text === 'pajaS 🚨 ALERT') msgData.send('dankS 🚨')
     if (msgData.channel.login === 'supinic' && msgData.user.login === 'supibot' && msgData.text === 'ppCircle') msgData.send('ppAutismo')
+    if (msgData.channel.login === 'aliengathering' && /!shoutout\b/i.test(msgData.text)) msgData.send(`Pepega 📣 @${msgData.user.login}`)
 })
 
 client.on('WHISPER', async (msg) => {
