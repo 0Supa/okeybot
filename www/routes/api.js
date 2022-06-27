@@ -13,9 +13,20 @@ router.get("/cmdlist", async (req, res) => {
 })
 
 router.get("/stats", async (req, res) => {
-    const data = await utils.query(`SELECT COUNT(id) As query FROM channels
-    UNION SELECT issued_commands FROM bot_data`)
-    res.send({ channelCount: data[0].query, uptime: utils.humanize(client.connectedAt), issuedCommands: { sinceRestart: client.issuedCommands, all: data[1].query }, commands: client.commands.size, MBram: Math.round(process.memoryUsage().rss / 1024 / 1024) })
+    const { totalIcm } = (await utils.query(`SELECT issued_commands AS totalIcm FROM bot_data`))[0]
+    res.send({
+        channelCount: Object.keys(client.userStateTracker.channelStates).length,
+        commands: client.knownCommands.length,
+        MBram: Math.round(process.memoryUsage().rss / 1024 / 1024),
+        uptime: {
+            human: utils.humanize(client.connectedAt),
+            timestamp: client.connectedAt
+        },
+        issuedCommands: {
+            sinceRestart: client.issuedCommands,
+            total: totalIcm
+        }
+    })
 })
 
 router.get("/channels", async (req, res) => {
