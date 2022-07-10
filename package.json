@@ -1,6 +1,6 @@
 {
   "name": "okeybot",
-  "version": "0.0.2",
+  "version": "1.5.0",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
