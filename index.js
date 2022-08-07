@@ -17,6 +17,7 @@ const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
 const stv = require('./lib/misc/7tvSocket.js')
+const twitter = require('./lib/misc/twitterStream.js')
 
 setInterval(utils.supinicAPIping, 600000)
 
@@ -70,6 +71,7 @@ client.on("ready", async () => {
     setInterval(loadChannels, 1800000) // 30 minutes
     pubsub.init()
     stv.init()
+    twitter.init()
 
     client.say(config.bot.login, 'AlienPls')
 });
