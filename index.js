@@ -121,6 +121,7 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
 client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
+    const received = Date.now()
     const channelData = await utils.getChannel(msg.channelID)
 
     const msgData = {
@@ -142,6 +143,7 @@ client.on("PRIVMSG", async (msg) => {
         'raw': msg.rawSource,
         'text': msg.messageText,
         'timestamp': msg.serverTimestampRaw,
+        received,
         'emotes': msg.emotes,
         'tags': msg.ircTags,
 
