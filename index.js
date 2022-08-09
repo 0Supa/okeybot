@@ -12,6 +12,7 @@ const config = require('./config.json')
 require('./www')
 require('./lib/misc/commands.js')
 
+const { performance } = require('perf_hooks');
 const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
@@ -121,7 +122,7 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
 client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
-    const received = Date.now()
+    const received = performance.now()
     const channelData = await utils.getChannel(msg.channelID)
 
     const msgData = {
