@@ -14,7 +14,7 @@
 
     const request = async () => {
         try {
-            const res = await fetch(`/spotify?code=${code}`, { method: "POST" });
+            const res = await fetch(`/api/spotify?code=${code}`, { method: "POST" });
             const json = await res.json();
             id = json.id;
         } catch (e) {
