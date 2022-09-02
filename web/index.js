@@ -3,7 +3,7 @@ const config = require('../config.json')
 const utils = require('../lib/utils/utils.js')
 const { logger } = require('../lib/utils/logger.js')
 const { client } = require('../lib/misc/connections.js')
-const nanoid = require('nanoid')
+const { nanoid } = require('nanoid')
 const app = express()
 
 const index = (req, res) => {
