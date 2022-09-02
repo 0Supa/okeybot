@@ -13,12 +13,14 @@
         category = el.target.value;
         searchInput = "";
         td = data[category];
+        showCommand = false;
     };
 
     const search = () => {
         const r = searchInput.toLowerCase();
         if (!r.length) return (td = data[category]);
         td = commands.filter((c) => c.name.toLowerCase().includes(r) || c.description.toLowerCase().includes(r));
+        showCommand = false;
     };
 
     const expand = (name) => {
