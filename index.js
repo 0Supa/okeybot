@@ -9,7 +9,7 @@ const twitchapi = require('./lib/utils/twitchapi.js')
 
 const config = require('./config.json')
 
-require('./www')
+require('./web')
 require('./lib/misc/commands.js')
 
 const { performance } = require('perf_hooks');

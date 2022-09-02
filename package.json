@@ -15,13 +15,26 @@
     "moment": "^2.29.1",
     "ms": "^2.0.0",
     "nanoid": "^3.1.29",
-    "pug": "^3.0.2",
     "reconnecting-websocket": "^4.4.0",
+    "sirv-cli": "^2.0.0",
+    "svelte-routing": "^1.6.0",
     "winston": "^3.3.3",
     "ws": "^8.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web-build": "rollup -c",
+    "web-dev": "rollup -c -w",
+    "web-start": "sirv web/public --no-clear -s"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
   },
   "author": "Supa",
   "license": "ISC",

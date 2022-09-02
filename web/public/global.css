@@ -1,0 +1,81 @@
+@font-face {
+	font-family: 'Quicksand';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/s/quicksand/v30/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+	color: white;
+	background-color: #222222;
+	font-family: 'Quicksand';
+	padding-bottom: 40px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+main {
+	padding: 10px;
+}
+
+.logo {
+	height: 2em;
+	width: auto;
+	margin-right: 1rem;
+}
+
+a {
+	color: #22b14c;
+}
+
+img {
+	vertical-align: middle;
+}
+
+.link {
+	color: #ababab;
+	text-decoration: none;
+}
+
+.link:hover {
+	color: white;
+}
+
+img.link {
+	fill: #ababab;
+	height: 2em;
+}
+
+.m-l {
+	margin-left: auto;
+}
+
+[aria-current] {
+	color: white;
+	font-weight: bold;
+}
+
+nav {
+	background-color: #303030;
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 5px;
+	border-radius: 0 0 5px 5px;
+}
+
+ul.nav li {
+	display: inline;
+}
+
+ul.nav li:not(:last-child) {
+	margin-right: 10px;
+}
+
+ul.nav {
+	padding: 0;
+	list-style-type: none;
+	margin: 5px 0;
+}
