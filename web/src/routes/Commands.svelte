@@ -65,6 +65,10 @@
                 <td>{command.cooldown ? `${command.cooldown} seconds` : "N/A"}</td>
             </tr>
             <tr>
+                <th>Usage</th>
+                <td>?{command.name} {command.usage ?? ""}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{command.description}</td>
             </tr>
