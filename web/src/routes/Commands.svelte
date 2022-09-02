@@ -115,10 +115,16 @@
         border-spacing: 1px;
     }
 
+    table {
+        table-layout: fixed;
+        max-width: 100%;
+    }
+
     th,
     td {
         padding: 0.5em;
         background-color: rgba(145, 145, 145, 0.1);
+        word-wrap: break-word;
     }
 
     th {
