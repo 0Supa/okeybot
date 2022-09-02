@@ -52,61 +52,63 @@
         <input bind:value={searchInput} on:input={search} class="search" type="text" placeholder="🔎 Search..." />
     </div>
 
-    {#if showCommand}
-        <table class="details" on:click={() => (showCommand = false)}>
-            <tr>
-                <th>Name</th>
-                <td>{command.name}</td>
-            </tr>
-            <tr>
-                <th>Aliases</th>
-                <td>{command.aliases.length ? command.aliases.join(", ") : "N/A"}</td>
-            </tr>
-            <tr>
-                <th>Access</th>
-                <td>{command.access ?? "everyone"}</td>
-            </tr>
-            <tr>
-                <th>Cooldown</th>
-                <td>{command.cooldown ? `${command.cooldown} seconds` : "N/A"}</td>
-            </tr>
-            <tr>
-                <th>Usage</th>
-                <td>?{command.name} {command.usage ?? ""}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{command.description}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>
-                    <a on:click={(e) => e.stopPropagation()} target="_blank" href="https://github.com/0Supa/okeybot/blob/main/lib/commands/{encodeURIComponent(command.name)}.js">GitHub</a>
-                </td>
-            </tr>
-        </table>
-    {:else if td.length}
-        <table class="commands">
-            <thead>
+    <div class="data">
+        {#if showCommand}
+            <table class="details" on:click={() => (showCommand = false)}>
                 <tr>
-                    <th>Command</th>
-                    <th>Description</th>
-                    <th>Cooldown</th>
+                    <th>Name</th>
+                    <td>{command.name}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {#each td as command}
-                    <tr on:click={expand(command.name)}>
-                        <td class="center bold">{command.name}</td>
-                        <td class="desc">{command.description}</td>
-                        <td class="center">{command.cooldown} seconds</td>
+                <tr>
+                    <th>Aliases</th>
+                    <td>{command.aliases.length ? command.aliases.join(", ") : "N/A"}</td>
+                </tr>
+                <tr>
+                    <th>Access</th>
+                    <td>{command.access ?? "everyone"}</td>
+                </tr>
+                <tr>
+                    <th>Cooldown</th>
+                    <td>{command.cooldown ? `${command.cooldown} seconds` : "N/A"}</td>
+                </tr>
+                <tr>
+                    <th>Usage</th>
+                    <td>?{command.name} {command.usage ?? ""}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{command.description}</td>
+                </tr>
+                <tr>
+                    <th>Code</th>
+                    <td>
+                        <a on:click={(e) => e.stopPropagation()} target="_blank" href="https://github.com/0Supa/okeybot/blob/main/lib/commands/{encodeURIComponent(command.name)}.js">GitHub</a>
+                    </td>
+                </tr>
+            </table>
+        {:else if td.length}
+            <table class="commands">
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                        <th>Cooldown</th>
                     </tr>
-                {/each}
-            </tbody>
-        </table>
-    {:else}
-        <h1>Nothing found :(</h1>
-    {/if}
+                </thead>
+                <tbody>
+                    {#each td as command}
+                        <tr on:click={expand(command.name)}>
+                            <td class="center bold">{command.name}</td>
+                            <td class="desc">{command.description}</td>
+                            <td class="center">{command.cooldown} seconds</td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        {:else}
+            <h1>Nothing found :(</h1>
+        {/if}
+    </div>
 </div>
 
 <style>
@@ -115,16 +117,10 @@
         border-spacing: 1px;
     }
 
-    table {
-        table-layout: fixed;
-        max-width: 100%;
-    }
-
     th,
     td {
         padding: 0.5em;
         background-color: rgba(145, 145, 145, 0.1);
-        word-wrap: break-word;
     }
 
     th {
@@ -188,6 +184,10 @@
 
     .search {
         float: right;
+    }
+
+    .data {
+        overflow-y: scroll;
     }
 
     .details {
