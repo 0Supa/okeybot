@@ -190,7 +190,7 @@ client.on('WHISPER', async (msg) => {
     let { body, statusCode } = await spotify.token({
         grant_type: 'authorization_code',
         code,
-        redirect_uri: `${config.website.url}/auth/spotify/callback`
+        redirect_uri: `${config.website.url}/spotify/callback`
     })
 
     if (statusCode !== 200) return await client.whisper(msg.senderUsername, `Spotify Error: ${body.error_description || body.error || 'unknown error'}`)
