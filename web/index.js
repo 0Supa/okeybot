@@ -12,7 +12,7 @@ app.get('*', (req, res) => {
 
 const scope = 'user-read-currently-playing user-read-recently-played user-top-read';
 const redirectUri = `${config.website.url}/auth/spotify/callback`
-router.get('/spotify/login', (req, res) => {
+app.get('/spotify/login', (req, res) => {
     res.redirect(`https://accounts.spotify.com/authorize?response_type=code&client_id=${config.auth.spotify.clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`)
 })
 
