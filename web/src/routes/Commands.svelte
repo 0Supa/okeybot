@@ -19,7 +19,7 @@
     const search = () => {
         const r = searchInput.toLowerCase();
         if (!r.length) return (td = data[category]);
-        td = commands.filter((c) => c.name.toLowerCase().includes(r) || c.description.toLowerCase().includes(r));
+        td = commands.filter((c) => (c.name + c.description + c.aliases.join("")).toLowerCase().includes(r));
         showCommand = false;
     };
 
