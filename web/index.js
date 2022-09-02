@@ -1,5 +1,6 @@
 const express = require('express')
 const config = require('../config.json')
+const utils = require('../lib/utils/utils.js')
 const { logger } = require('../lib/utils/logger.js')
 const { client } = require('../lib/misc/connections.js');
 const app = express()
@@ -20,7 +21,7 @@ app.get('/spotify/login', (req, res) => {
 })
 
 app.get("/api/commands", async (req, res) => {
-    res.json(client.commandsData)
+    res.send(client.commandsData)
 })
 
 app.get("/api/stats", async (req, res) => {
@@ -60,7 +61,7 @@ app.post("/api/spotify", async (req, res) => {
         ])
     }
 
-    res.json({
+    res.send({
         id: `spotify ${id}`
     });
 })
