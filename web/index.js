@@ -4,11 +4,13 @@ const { logger } = require('../lib/utils/logger.js')
 const { client } = require('../lib/misc/connections.js');
 const app = express()
 
-app.use('/', express.static(`${__dirname}/public`))
-
-app.get('*', (req, res) => {
+const index = (req, res) => {
     res.sendFile(`${__dirname}/public/index.html`)
-});
+}
+
+app.use('/', express.static(`${__dirname}/public`))
+app.get('/commands', index)
+app.get('/spotify', index)
 
 const scope = 'user-read-currently-playing user-read-recently-played user-top-read';
 const redirectUri = `${config.website.url}/auth/spotify/callback`
