@@ -141,7 +141,7 @@
         font-size: 1.2em;
         font-weight: normal;
         color: #ababab;
-        margin: 0 5px;
+        margin: 0 5px 5px 0;
         padding: 5px;
         border: 1px solid transparent;
         border-radius: 5px;
@@ -160,7 +160,7 @@
     }
 
     button {
-        min-width: 4em;
+        min-width: 4.5em;
         text-align: center;
     }
 
