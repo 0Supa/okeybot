@@ -1,3 +1,13 @@
+<script>
+    let stats = {};
+
+    const request = async () => {
+        const res = await fetch("/api/stats");
+        stats = await res.json();
+    };
+    request();
+</script>
+
 <div class="container">
     <h1>Description</h1>
     <blockquote>
@@ -19,6 +29,20 @@
         </ul>
         <p>The bot will automatically rejoin after a name change or a Twitch suspension, this process will take up to 30 minutes</p>
         <p>If you want the bot removed from your channel, you can just ban it <img class="emote" alt="4Head" src="4Head.png" /></p>
+    </blockquote>
+
+    <h1>Stats</h1>
+    <blockquote>
+        <table>
+            <tr>
+                <th>Active Channels</th>
+                <td>{stats.channelCount ?? "..."}</td>
+            </tr>
+            <tr>
+                <th>Issued Commands</th>
+                <td>{stats.issuedCommands.total ?? "..."}</td>
+            </tr>
+        </table>
     </blockquote>
 </div>
 
