@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Home / Okeybot</title>
+</svelte:head>
+
 <div class="container">
     <h1>Description</h1>
     <blockquote>

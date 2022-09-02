@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Spotify / Okeybot</title>
+</svelte:head>
+
 <div class="container">
     <a href="/spotify/login">
         <button>

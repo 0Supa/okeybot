@@ -40,6 +40,10 @@
     fetchCommands();
 </script>
 
+<svelte:head>
+    <title>Commands / Okeybot</title>
+</svelte:head>
+
 <div class="container">
     <div class="filter">
         {#each categories as text}
