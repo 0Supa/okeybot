@@ -32,6 +32,7 @@
 
 <div class="container">
     {#if id}
+        <p>Whisper <b>Okey_bot</b> this message to link your Spotify account on Twitch</p>
         <input bind:this={input} value={id} type="text" readonly />
         <button on:click={copy}>Copy</button>
     {:else}
