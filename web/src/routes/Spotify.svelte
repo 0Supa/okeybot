@@ -1,5 +1,5 @@
 <div class="container">
-    <a href="/auth/spotify/login">
+    <a href="/spotify/login">
         <button>
             <img alt="logo" src="spotify.png" /> Connect with Spotify
         </button>
