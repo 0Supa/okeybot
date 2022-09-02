@@ -1,7 +1,7 @@
 const express = require('express')
 const config = require('../config.json')
 const { logger } = require('../lib/utils/logger.js')
-const { client } = require('../../lib/misc/connections.js');
+const { client } = require('../lib/misc/connections.js');
 const app = express()
 
 app.use('/', express.static(`${__dirname}/public`))
