@@ -147,13 +147,17 @@
         font-size: 1.2em;
         font-weight: normal;
         color: #ababab;
-        margin: 0 5px 5px 0;
+        margin-bottom: 5px;
         padding: 5px;
         border: 1px solid transparent;
         border-radius: 5px;
         color: white;
         background-color: #121212;
         transition: all 0.25s linear;
+    }
+
+    button:not(:last-child) {
+        margin-right: 5px;
     }
 
     input {
@@ -182,7 +186,7 @@
     }
 
     .filter {
-        padding: 10px;
+        padding: 0 5px;
     }
 
     .search {
