@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <th>Issued Commands</th>
-                <td>{stats.issuedCommands.total ?? "..."}</td>
+                <td>{stats.issuedCommands?.total ?? "..."}</td>
             </tr>
         </table>
     </blockquote>
