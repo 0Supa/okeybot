@@ -5,8 +5,9 @@
     let command = {};
 
     let searchInput;
-    let commands;
-    let categories;
+    let data;
+    let commands = {};
+    let categories = [];
 
     const changeCategory = (el) => {
         category = el.target.value;
