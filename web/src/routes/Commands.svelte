@@ -156,10 +156,6 @@
         transition: all 0.25s linear;
     }
 
-    button:not(:last-child) {
-        margin-right: 5px;
-    }
-
     input {
         width: 10em;
     }
@@ -172,6 +168,7 @@
     button {
         min-width: 4.5em;
         text-align: center;
+        margin-right: 5px;
     }
 
     button.active,
