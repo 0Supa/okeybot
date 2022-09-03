@@ -25,7 +25,12 @@
 
     const expand = (name) => {
         command = commands.find((c) => c.name === name);
-        showCommand = true;
+        if (command) showCommand = true;
+    };
+
+    const parseParams = () => {
+        const cmdName = window.location.pathname[2];
+        if (cmdName) expand(cmdName);
     };
 
     const fetchCommands = async () => {
@@ -36,6 +41,7 @@
         categories = Object.keys(data);
         category = categories[0];
         td = data[category];
+        parseParams();
     };
     fetchCommands();
 </script>
@@ -54,6 +60,7 @@
 
     <div class="data">
         {#if showCommand}
+            {window.history.pushState({}, null, `/commands/${command.name}`)}
             <table class="details" on:click={() => (showCommand = false)}>
                 <tr>
                     <th>Name</th>
@@ -87,6 +94,7 @@
                 </tr>
             </table>
         {:else if td.length}
+            {window.history.pushState({}, null, "/commands")}
             <table class="commands">
                 <thead>
                     <tr>
@@ -174,12 +182,12 @@
     button.active,
     button:hover {
         cursor: pointer;
-        font-weight: bold;
         background-color: #333;
     }
 
     button.active {
         border: 1px solid white;
+        font-weight: bold;
     }
 
     .filter {
