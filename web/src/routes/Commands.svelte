@@ -162,7 +162,6 @@
     button,
     input {
         font-size: 1.2em;
-        font-weight: normal;
         color: #ababab;
         margin-bottom: 5px;
         padding: 5px;
