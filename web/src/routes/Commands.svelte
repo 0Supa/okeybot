@@ -123,6 +123,10 @@
         background-color: rgba(145, 145, 145, 0.1);
     }
 
+    td {
+        word-break: break-word;
+    }
+
     th {
         min-width: max-content;
         background-color: #121212;
