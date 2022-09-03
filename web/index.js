@@ -6,20 +6,7 @@ const { client } = require('../lib/misc/connections.js')
 const { nanoid } = require('nanoid')
 const app = express()
 
-const index = (req, res) => {
-    res.sendFile(`${__dirname}/public/index.html`)
-}
-
 app.use('/', express.static(`${__dirname}/public`))
-app.get('/commands', index)
-app.get('/spotify', index)
-app.get('/spotify/callback', index)
-
-const scope = 'user-read-currently-playing user-read-recently-played user-top-read';
-const redirectUri = `${config.website.url}/spotify/callback`
-app.get('/spotify/login', (req, res) => {
-    res.redirect(`https://accounts.spotify.com/authorize?response_type=code&client_id=${config.auth.spotify.clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`)
-})
 
 app.get("/api/commands", async (req, res) => {
     res.send(client.commandsData)
@@ -65,6 +52,16 @@ app.post("/api/spotify", async (req, res) => {
     res.send({
         id: `spotify ${id}`
     });
+})
+
+const scope = 'user-read-currently-playing user-read-recently-played user-top-read';
+const redirectUri = `${config.website.url}/spotify/callback`
+app.get('/spotify/login', (req, res) => {
+    res.redirect(`https://accounts.spotify.com/authorize?response_type=code&client_id=${config.auth.spotify.clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`)
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(`${__dirname}/public/index.html`)
 })
 
 app.listen(config.website.port, () => {
