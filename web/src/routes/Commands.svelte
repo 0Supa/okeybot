@@ -117,10 +117,15 @@
         border-spacing: 1px;
     }
 
+    table {
+        width: fit-content;
+    }
+
     th,
     td {
         padding: 0.5em;
         background-color: rgba(145, 145, 145, 0.1);
+        word-break: break-word;
     }
 
     th {
@@ -186,10 +191,6 @@
         float: right;
     }
 
-    .data {
-        overflow-y: scroll;
-    }
-
     .details {
         margin: auto;
         padding: 5px;
@@ -213,7 +214,6 @@
     }
 
     .center {
-        min-width: max-content;
         text-align: center;
     }
 
