@@ -71,7 +71,7 @@
 
     <div class="data">
         {#if showCommand}
-            <table class="details" on:click={expand}>
+            <table class="details" on:click={() => expand()}>
                 <tr>
                     <th>Name</th>
                     <td>{command.name}</td>
