@@ -27,6 +27,7 @@
     <main>
         <Route path="/"><Home /></Route>
         <Route path="/commands"><Commands /></Route>
+        <Route path="/commands/:name"><Commands /></Route>
         <Route path="/spotify"><Spotify /></Route>
         <Route path="/spotify/callback"><SpotifyCallback /></Route>
     </main>
