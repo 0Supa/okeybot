@@ -22,9 +22,9 @@
     "ws": "^8.0.0"
   },
   "scripts": {
-    "web-build": "rollup -c",
-    "web-dev": "rollup -c -w",
-    "web-start": "sirv web/public --no-clear -s"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv web/public --no-clear -s"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
