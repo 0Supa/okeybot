@@ -35,7 +35,7 @@
         command = commands.find((c) => c.name === name);
         if (command) {
             showCommand = true;
-            window.history.pushState({}, null, `/commands/${command.name}`);
+            window.history.pushState({}, null, `/commands/${encodeURIComponent(command.name)}`);
         }
     };
 
