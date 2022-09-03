@@ -41,7 +41,7 @@
 
     const parseParams = () => {
         const cmdName = window.location.pathname.split("/")[2];
-        if (cmdName) expand(cmdName);
+        if (cmdName) expand(decodeURIComponent(cmdName));
     };
 
     const fetchCommands = async () => {
