@@ -152,12 +152,15 @@ client.on("PRIVMSG", async (msg) => {
             try {
                 message = utils.fitText(message, 490)
 
-                if (regex.racism.test(this.text) && !cooldown.has(`${this.channel.id}-${this.user.id}:banphrase`)) {
+                if (regex.racism.test(message)) {
                     cooldown.set(`${this.channel.id}-${this.user.id}:banphrase`, 30000)
-                    return this.send(`${this.user.name}, the reply message violates an internal banphrase`)
+                    if (!cooldown.has(`${this.channel.id}-${this.user.id}:banphrase`))
+                        this.send(`${this.user.name}, the reply message violates an internal banphrase`);
+                    return
                 }
 
-                if (this.channel.query.pajbot_api) message = await banphraseCheck(message, this.channel.query.pajbot_api)
+                if (this.channel.query.pajbot_api)
+                    message = await banphraseCheck(message, this.channel.query.pajbot_api);
 
                 await client.say(this.channel.login, message)
             } catch (e) {
