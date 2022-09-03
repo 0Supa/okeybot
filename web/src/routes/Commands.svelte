@@ -128,7 +128,6 @@
     }
 
     th {
-        min-width: max-content;
         background-color: #121212;
         padding: 10px;
     }
