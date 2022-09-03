@@ -1,13 +1,13 @@
 <script>
     let data;
-    let commands = {};
-    let command = {};
+    let commands;
 
     let categories = [];
-    let category;
-
     let td = [];
+
     let searchInput;
+    let command;
+    let category;
 
     const changeCategory = (el) => {
         category = el.target.value;
