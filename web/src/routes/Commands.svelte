@@ -1,13 +1,13 @@
 <script>
-    let category;
-    let td = [];
-    let showCommand = false;
-    let command = {};
-
-    let searchInput;
     let data;
     let commands = {};
+    let command = {};
+
     let categories = [];
+    let category;
+
+    let td = [];
+    let searchInput;
 
     const changeCategory = (el) => {
         category = el.target.value;
@@ -25,8 +25,8 @@
 
     const expand = (name) => {
         if (!name) {
-            if (showCommand === true) {
-                showCommand = false;
+            if (command) {
+                command = null;
                 window.history.pushState({}, null, `/commands`);
             }
             return;
@@ -34,7 +34,6 @@
 
         command = commands.find((c) => c.name === name);
         if (command) {
-            showCommand = true;
             window.history.pushState({}, null, `/commands/${encodeURIComponent(command.name)}`);
         }
     };
@@ -70,7 +69,7 @@
     </div>
 
     <div class="data">
-        {#if showCommand}
+        {#if command}
             <table class="details" on:click={() => expand()}>
                 <tr>
                     <th>Name</th>
@@ -122,7 +121,7 @@
                     {/each}
                 </tbody>
             </table>
-        {:else}
+        {:else if data}
             <h1>Nothing found :(</h1>
         {/if}
     </div>
