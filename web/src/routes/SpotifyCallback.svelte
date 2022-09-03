@@ -48,7 +48,6 @@
     button,
     input {
         font-size: 1.2em;
-        font-weight: normal;
         color: #ababab;
         margin: 0;
         padding: 5px;
@@ -75,7 +74,6 @@
 
     button:hover {
         cursor: pointer;
-        font-weight: bold;
         background-color: #333;
     }
 </style>
