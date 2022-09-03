@@ -13,23 +13,34 @@
         category = el.target.value;
         searchInput = "";
         td = data[category];
-        showCommand = false;
+        expand();
     };
 
     const search = () => {
         const r = searchInput.toLowerCase();
         if (!r.length) return (td = data[category]);
         td = commands.filter((c) => (c.name + c.description + c.aliases.join("")).toLowerCase().includes(r));
-        showCommand = false;
+        expand();
     };
 
     const expand = (name) => {
+        if (!name) {
+            if (showCommand === true) {
+                showCommand = false;
+                window.history.pushState({}, null, `/commands`);
+            }
+            return;
+        }
+
         command = commands.find((c) => c.name === name);
-        if (command) showCommand = true;
+        if (command) {
+            showCommand = true;
+            window.history.pushState({}, null, `/commands/${command.name}`);
+        }
     };
 
     const parseParams = () => {
-        const cmdName = window.location.pathname[2];
+        const cmdName = window.location.pathname.split("/")[2];
         if (cmdName) expand(cmdName);
     };
 
@@ -60,8 +71,7 @@
 
     <div class="data">
         {#if showCommand}
-            {window.history.pushState({}, null, `/commands/${command.name}`)}
-            <table class="details" on:click={() => (showCommand = false)}>
+            <table class="details" on:click={expand}>
                 <tr>
                     <th>Name</th>
                     <td>{command.name}</td>
@@ -94,7 +104,6 @@
                 </tr>
             </table>
         {:else if td.length}
-            {window.history.pushState({}, null, "/commands")}
             <table class="commands">
                 <thead>
                     <tr>
