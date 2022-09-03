@@ -24,18 +24,17 @@
     };
 
     const expand = (name) => {
+        let path;
         if (!name) {
-            if (command) {
-                command = null;
-                window.history.pushState({}, null, `/commands`);
-            }
-            return;
+            if (!command) return;
+            command = null;
+            path = "/commands";
+        } else {
+            command = commands.find((c) => c.name === name);
+            path = `/commands/${encodeURIComponent(command.name)}`;
         }
 
-        command = commands.find((c) => c.name === name);
-        if (command) {
-            window.history.pushState({}, null, `/commands/${encodeURIComponent(command.name)}`);
-        }
+        window.history.pushState({}, null, path);
     };
 
     const parseParams = () => {
