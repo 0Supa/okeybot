@@ -117,18 +117,14 @@
         border-spacing: 1px;
     }
 
-    table {
-        width: fit-content;
-    }
-
     th,
     td {
         padding: 0.5em;
         background-color: rgba(145, 145, 145, 0.1);
-        word-break: break-word;
     }
 
     th {
+        min-width: max-content;
         background-color: #121212;
         padding: 10px;
     }
