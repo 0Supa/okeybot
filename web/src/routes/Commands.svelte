@@ -24,14 +24,13 @@
     };
 
     const expand = (name) => {
-        let path;
+        let path = "/commands";
         if (!name) {
             if (!command) return;
             command = null;
-            path = "/commands";
         } else {
             command = commands.find((c) => c.name === name);
-            path = `/commands/${encodeURIComponent(command.name)}`;
+            if (command) path += `/${encodeURIComponent(command.name)}`;
         }
 
         window.history.pushState({}, null, path);
