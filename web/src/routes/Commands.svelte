@@ -99,6 +99,11 @@
                         <a on:click={(e) => e.stopPropagation()} target="_blank" href="https://github.com/0Supa/okeybot/blob/main/lib/commands/{encodeURIComponent(command.name)}.js">GitHub</a>
                     </td>
                 </tr>
+                {#if command.extended}
+                    <div class="extended">
+                        {@html command.extended}
+                    </div>
+                {/if}
             </table>
         {:else if td.length}
             <table class="commands">
@@ -223,6 +228,10 @@
     .details th {
         text-align: left;
         padding-right: 10px;
+    }
+
+    .extended {
+        margin-top: 5px;
     }
 
     .center {
