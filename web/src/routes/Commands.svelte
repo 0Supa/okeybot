@@ -68,43 +68,45 @@
 
     <div class="data">
         {#if command}
-            <table class="details" on:click={() => expand()}>
-                <tr>
-                    <th>Name</th>
-                    <td>{command.name}</td>
-                </tr>
-                <tr>
-                    <th>Aliases</th>
-                    <td>{command.aliases.length ? command.aliases.join(", ") : "N/A"}</td>
-                </tr>
-                <tr>
-                    <th>Access</th>
-                    <td>{command.access ?? "everyone"}</td>
-                </tr>
-                <tr>
-                    <th>Cooldown</th>
-                    <td>{command.cooldown ? `${command.cooldown} seconds` : "N/A"}</td>
-                </tr>
-                <tr>
-                    <th>Usage</th>
-                    <td>?{command.name} {command.usage ?? ""}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{command.description}</td>
-                </tr>
-                <tr>
-                    <th>Code</th>
-                    <td>
-                        <a on:click={(e) => e.stopPropagation()} target="_blank" href="https://github.com/0Supa/okeybot/blob/main/lib/commands/{encodeURIComponent(command.name)}.js">GitHub</a>
-                    </td>
-                </tr>
+            <div class="details" on:click={() => expand()}>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <td>{command.name}</td>
+                    </tr>
+                    <tr>
+                        <th>Aliases</th>
+                        <td>{command.aliases.length ? command.aliases.join(", ") : "N/A"}</td>
+                    </tr>
+                    <tr>
+                        <th>Access</th>
+                        <td>{command.access ?? "everyone"}</td>
+                    </tr>
+                    <tr>
+                        <th>Cooldown</th>
+                        <td>{command.cooldown ? `${command.cooldown} seconds` : "N/A"}</td>
+                    </tr>
+                    <tr>
+                        <th>Usage</th>
+                        <td>?{command.name} {command.usage ?? ""}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{command.description}</td>
+                    </tr>
+                    <tr>
+                        <th>Code</th>
+                        <td>
+                            <a on:click={(e) => e.stopPropagation()} target="_blank" href="https://github.com/0Supa/okeybot/blob/main/lib/commands/{encodeURIComponent(command.name)}.js">GitHub</a>
+                        </td>
+                    </tr>
+                </table>
                 {#if command.extended}
                     <div class="extended">
                         {@html command.extended}
                     </div>
                 {/if}
-            </table>
+            </div>
         {:else if td.length}
             <table class="commands">
                 <thead>
@@ -209,6 +211,8 @@
     }
 
     .details {
+        max-width: max-content;
+        word-break: break-word;
         margin: auto;
         padding: 5px;
         border: 1px solid #555;
