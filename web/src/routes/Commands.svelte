@@ -213,7 +213,6 @@
 
     .details {
         max-width: max-content;
-        word-break: break-word;
         margin: auto;
         padding: 5px;
         border: 1px solid #555;
