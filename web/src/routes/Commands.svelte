@@ -236,7 +236,7 @@
 
     .extended {
         margin-top: 5px;
-        cursor: inherit;
+        cursor: auto;
     }
 
     .center {
