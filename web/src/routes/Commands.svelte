@@ -102,7 +102,7 @@
                     </tr>
                 </table>
                 {#if command.extended}
-                    <div class="extended">
+                    <div on:click={(e) => e.stopPropagation()} class="extended">
                         {@html command.extended}
                     </div>
                 {/if}
@@ -236,6 +236,7 @@
 
     .extended {
         margin-top: 5px;
+        cursor: pointer;
     }
 
     .center {
