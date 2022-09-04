@@ -204,6 +204,7 @@
 
     .filter {
         padding: 0 5px;
+        overflow: hidden;
     }
 
     .search {
