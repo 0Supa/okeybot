@@ -216,7 +216,7 @@
         margin: auto;
         padding: 5px;
         border: 1px solid #555;
-        border-radius: 10px;
+        background-color: rgba(145, 145, 145, 0.1);
     }
 
     .details:hover {
