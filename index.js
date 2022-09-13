@@ -51,14 +51,14 @@ client.on("ready", async () => {
                         utils.query(`UPDATE 7tv_updates SET login=? WHERE login=?`, [newUser.login, channel.login])
                     ])
 
-                    client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} => ${newUser.login}`)
-                    client.say(newUser.login, `MrDestructoid Name change detected: ${channel.login} => ${newUser.login}`)
+                    client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} → ${newUser.login}`)
+                    client.say(newUser.login, `MrDestructoid Name change detected: ${channel.login} → ${newUser.login}`)
                 }
 
                 tmiChannels.push(newUser.login)
             } else {
                 await utils.query(`UPDATE channels SET suspended=? WHERE platform_id=?`, [true, channel.id])
-                client.say(config.bot.login, `Couldn't resolve user "${channel.id} - ${channel.login}"`)
+                client.say(config.bot.login, `Failed to resolve @${channel.login} | ${channel.id}"`)
             }
         }
 
