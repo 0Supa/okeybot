@@ -58,7 +58,7 @@ client.on("ready", async () => {
                 tmiChannels.push(newUser.login)
             } else {
                 await utils.query(`UPDATE channels SET suspended=? WHERE platform_id=?`, [true, channel.id])
-                client.say(config.bot.login, `Failed to resolve @${channel.login} | ${channel.id}"`)
+                client.say(config.bot.login, `Failed to resolve @${channel.login} | ${channel.id}`)
             }
         }
 
