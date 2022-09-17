@@ -1,0 +1,10 @@
+{
+    "operationHashes": {
+        "SendAnnouncementMessage": "f9e37b572ceaca1475d8d50805ae64d6eb388faf758556b2719f44d64e5ba791",
+        "ChatRoomState": "04cc4f104a120ea0d9f9d69be8791233f2188adf944406783f0c3a3e71aff8d2",
+        "EmoteCard": "a05d2613c6601717c6feaaa85469d4fd7d761eafbdd4c1e4e8fdea961bd9617f",
+        "MessageBufferChatHistory": "323028b2fa8f8b5717dfdc5069b3880a2ad4105b168773c3048275b79ab81e2f",
+        "createPredictionEvent": "92268878ac4abe722bcdcba85a4e43acdd7a99d86b05851759e1d8f385cc32ea",
+        "UpdateCoPoCustomRewardStatus": "d940a7ebb2e588c3fc0c69a2fb61c5aeb566833f514cf55b9de728082c90361d"
+    }
+}
