@@ -15,8 +15,11 @@
                 "clientId": "^^^"
             },
             "gql": {
-                "token": "OPTIONAL",
-                "clientId": "kimne78kx3ncx6brgo4mv6wki5h1ko"
+                "token": "(Optional)",
+                "clientId": "kimne78kx3ncx6brgo4mv6wki5h1ko",
+                "sessionId": "",
+                "deviceId": "",
+                "version": ""
             }
         },
         "openweathermap": "OpenWeather API Key",
