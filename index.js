@@ -20,7 +20,10 @@ const pubsub = require('./lib/misc/pubsub.js')
 const stv = require('./lib/misc/7tvSocket.js')
 const twitter = require('./lib/misc/twitterStream.js')
 
-setInterval(twitchapi.supi.put("bot-program/bot/active"), 600000)
+setInterval(() => {
+    twitchapi.supi.put("bot-program/bot/active")
+        .catch(err => console.error(`Failed to ping Supinic's bot program`, err))
+}, 600000)
 
 client.on("ready", async () => {
     logger.info("TMI Connected");
