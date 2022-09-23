@@ -97,6 +97,11 @@ client.on('NOTICE', async ({ channelName, messageID, messageText }) => {
         case 'msg_rejected':
         case 'msg_rejected_mandatory': {
             logger.error(`received msg_rejected/mandatory from ${channelName} -> ${messageText}`);
+
+            if (!cooldown.has(`${channelName}:automod`)) {
+                cooldown.set(`${channelName}:automod`, 20000)
+                client.say(channelName, 'A message that was about to get sent got rejected by automod');
+            }
             break;
         }
 
@@ -126,6 +131,7 @@ client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
     const received = performance.now()
+    const ts = Date.now()
     const channelData = await utils.getChannel(msg.channelID)
 
     const msgData = {
@@ -143,6 +149,7 @@ client.on("PRIVMSG", async (msg) => {
             'login': msg.channelName,
             'query': channelData
         },
+        'id': msg.messageID,
         'isAction': msg.isAction,
         'raw': msg.rawSource,
         'text': msg.messageText,
@@ -151,7 +158,7 @@ client.on("PRIVMSG", async (msg) => {
         'emotes': msg.emotes,
         'tags': msg.ircTags,
 
-        send: async function (message) {
+        send: async function (message, reply) {
             try {
                 message = utils.fitText(message, 490)
 
@@ -165,15 +172,9 @@ client.on("PRIVMSG", async (msg) => {
                 if (this.channel.query.pajbot_api)
                     message = await banphraseCheck(message, this.channel.query.pajbot_api);
 
-                await client.say(this.channel.login, message)
-            } catch (e) {
-                if (e instanceof Twitch.SayError && e.message.includes('@msg-id=msg_rejected')
-                    && !cooldown.has(`${this.channel.id}-${this.user.id}:automod`)) {
-                    cooldown.set(`${this.channel.id}-${this.user.id}:automod`, 30000)
-                    return this.send(`${this.user.name}, the reply message violates the channel blocked terms (automod)`);
-                }
-
-                console.error(`error while sending reply message in ${this.channel.login}: ${e}`);
+                client.sendRaw(`@sent-ts=${ts}${reply ? `;reply-parent-msg-id=${this.id}` : ''} PRIVMSG #${this.channel.login} :${message}`)
+            } catch (err) {
+                console.error(`error while sending reply message in "${this.channel.login}"`, err);
             }
         }
     }
