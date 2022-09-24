@@ -172,7 +172,10 @@ client.on("PRIVMSG", async (msg) => {
                 if (this.channel.query.pajbot_api)
                     message = await banphraseCheck(message, this.channel.query.pajbot_api);
 
-                client.sendRaw(`@sent-ts=${ts}${reply ? `;reply-parent-msg-id=${this.id}` : ''} PRIVMSG #${this.channel.login} :/ ${message}`)
+                client.sendRaw(
+                    reply ? `@sent-ts=${ts};reply-parent-msg-id=${this.id} PRIVMSG #${this.channel.login} :/ » ${message}`
+                        : `@sent-ts=${ts} PRIVMSG #${this.channel.login} :/ ${message}`
+                )
             } catch (err) {
                 console.error(`error while sending reply message in "${this.channel.login}"`, err);
             }
