@@ -18,8 +18,7 @@
                 "token": "(Optional)",
                 "clientId": "kimne78kx3ncx6brgo4mv6wki5h1ko",
                 "sessionId": "",
-                "deviceId": "",
-                "version": "40ed6151-c4f8-4557-a261-c8615ff1c589"
+                "deviceId": ""
             }
         },
         "openweathermap": "OpenWeather API Key",
