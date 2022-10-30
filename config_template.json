@@ -13,12 +13,6 @@
             "helix": {
                 "token": "[Required scopes: chat:read, chat:edit, whispers:read, whispers:edit, channel:moderate, moderator:manage:banned_users] Use this for generating a custom scope token -> https://twitchtokengenerator.com/",
                 "clientId": "^^^"
-            },
-            "gql": {
-                "token": "(Optional)",
-                "clientId": "kimne78kx3ncx6brgo4mv6wki5h1ko",
-                "sessionId": "",
-                "deviceId": ""
             }
         },
         "openweathermap": "OpenWeather API Key",
