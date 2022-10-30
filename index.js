@@ -17,7 +17,6 @@ const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
-const stv = require('./lib/misc/7tvSocket.js')
 const twitter = require('./lib/misc/twitterStream.js')
 
 setInterval(() => {
@@ -51,7 +50,6 @@ client.on("ready", async () => {
                         utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [newUser.login, channel.id]),
                         utils.change(channel.id, 'login', newUser.login),
                         utils.query(`UPDATE notify_channels SET login=? WHERE user_id=?`, [newUser.login, channel.id]),
-                        utils.query(`UPDATE 7tv_updates SET login=? WHERE login=?`, [newUser.login, channel.login])
                     ])
 
                     client.say(config.bot.login, `hackerCD Name change detected: ${channel.login} → ${newUser.login}`)
@@ -74,7 +72,6 @@ client.on("ready", async () => {
 
     setInterval(loadChannels, 1800000) // 30 minutes
     pubsub.init()
-    stv.init()
     twitter.init()
 
     client.say(config.bot.login, 'AlienPls')

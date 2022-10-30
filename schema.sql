@@ -17,16 +17,6 @@
 CREATE DATABASE IF NOT EXISTS `okey_bot` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `okey_bot`;
 
--- Dumping structure for table okey_bot.7tv_updates
-CREATE TABLE IF NOT EXISTS `7tv_updates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Data exporting was unselected.
-
 -- Dumping structure for table okey_bot.bot_data
 CREATE TABLE IF NOT EXISTS `bot_data` (
   `issued_commands` int(255) NOT NULL DEFAULT 0
