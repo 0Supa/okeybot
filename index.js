@@ -47,7 +47,6 @@ client.on("ready", async () => {
             if (newUser) {
                 if (channel.login !== newUser.login) {
                     await Promise.all([
-                        utils.query(`UPDATE channels SET login=? WHERE platform_id=?`, [newUser.login, channel.id]),
                         utils.change(channel.id, 'login', newUser.login),
                         utils.query(`UPDATE notify_channels SET login=? WHERE user_id=?`, [newUser.login, channel.id]),
                     ])
