@@ -1,5 +1,3 @@
-const Twitch = require('dank-twitch-irc');
-
 const utils = require('./lib/utils/utils.js');
 const { logger } = require('./lib/utils/logger.js')
 const spotify = require('./lib/utils/spotify.js')
@@ -36,7 +34,7 @@ client.on("ready", async () => {
         const users = await twitchapi.getUsers(channels.map(channel => channel.id))
         let tmiChannels = []
 
-        for (channel of channels) {
+        for (const channel of channels) {
             if (channel.suspended) {
                 tmiChannels.push(channel.login)
                 continue;
