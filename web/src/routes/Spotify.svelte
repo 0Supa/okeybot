@@ -18,7 +18,6 @@
     button {
         cursor: pointer;
         margin-left: auto;
-        font-family: "Quicksand";
         padding: 20px 25px;
         color: white;
         border: 0;
