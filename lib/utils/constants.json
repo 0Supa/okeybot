@@ -1,4 +1,5 @@
 {
+    "fakeUA": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0",
     "clientId": "kimne78kx3ncx6brgo4mv6wki5h1ko",
     "operationHashes": {
         "ChatRoomState": "04cc4f104a120ea0d9f9d69be8791233f2188adf944406783f0c3a3e71aff8d2",
