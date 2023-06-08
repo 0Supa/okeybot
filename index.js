@@ -152,7 +152,7 @@ client.on("PRIVMSG", async (msg) => {
         'emotes': msg.emotes,
         'tags': msg.ircTags,
 
-        send: async function (message, reply) {
+        send: async (message, reply) => {
             try {
                 message = utils.fitText(message, 490)
 
@@ -209,8 +209,7 @@ client.on("JOIN", async ({ channelName }) => {
     logger.info(`Joined ${channelName}`)
     client.joinedChannels.add(channelName)
 
-    await utils.query(`UPDATE channels SET bot_banned=? WHERE login=?`, [false, channelName])
-    await utils.query(`UPDATE channels SET suspended=? WHERE login=?`, [false, channelName])
+    await utils.query(`UPDATE channels SET bot_banned=?, suspended=? WHERE login=?`, [false, false, channelName])
 });
 
 client.on("PART", ({ channelName }) => {
