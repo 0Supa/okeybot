@@ -15,7 +15,6 @@ const { client } = require('./lib/misc/connections.js')
 const { handle } = require('./lib/misc/handler.js')
 const { banphraseCheck } = require('./lib/utils/pajbot.js')
 const pubsub = require('./lib/misc/pubsub.js')
-const twitter = require('./lib/misc/twitterStream.js')
 
 setInterval(() => {
     twitchapi.supi.put("bot-program/bot/active")
@@ -69,7 +68,6 @@ client.on("ready", async () => {
 
     setInterval(loadChannels, 1800000) // 30 minutes
     pubsub.init()
-    twitter.init()
 
     client.say(config.bot.login, 'AlienPls')
 });

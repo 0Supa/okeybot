@@ -37,9 +37,6 @@
             "clientId": "",
             "clientSecret": ""
         },
-        "twitter": {
-            "bearer": ""
-        },
         "uberduck": {
             "key": "",
             "secret": ""
