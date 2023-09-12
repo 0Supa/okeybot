@@ -40,6 +40,10 @@
         "uberduck": {
             "key": "",
             "secret": ""
+        },
+        "gelbooru": {
+            "api_key": "",
+            "user_id": ""
         }
     },
     "website": {
