@@ -150,7 +150,7 @@ client.on("PRIVMSG", async (msg) => {
         'emotes': msg.emotes,
         'tags': msg.ircTags,
 
-        send: async function(message, reply) {
+        send: async function (message, reply) {
             try {
                 message = utils.fitText(message, 490)
 
@@ -165,7 +165,7 @@ client.on("PRIVMSG", async (msg) => {
                     message = await banphraseCheck(message, this.channel.query.pajbot_api);
 
                 client.sendRaw(
-                    reply ? `@sent-ts=${ts};reply-parent-msg-id=${this.id} PRIVMSG #${this.channel.login} :/ » ${message}`
+                    reply ? `@sent-ts=${ts};reply-parent-msg-id=${this.id} PRIVMSG #${this.channel.login} :/ ${message}`
                         : `@sent-ts=${ts} PRIVMSG #${this.channel.login} :/ ${message}`
                 )
             } catch (err) {
