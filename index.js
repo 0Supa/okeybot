@@ -152,7 +152,7 @@ client.on("PRIVMSG", async (msg) => {
 
         send: async function (message, reply) {
             try {
-                message = utils.fitText(message, 490)
+                message = utils.fitText(message, 440)
 
                 if (regex.racism.test(message)) {
                     cooldown.set(`${this.channel.id}-${this.user.id}:banphrase`, 30000)
@@ -165,8 +165,7 @@ client.on("PRIVMSG", async (msg) => {
                     message = await banphraseCheck(message, this.channel.query.pajbot_api);
 
                 client.sendRaw(
-                    reply ? `@sent-ts=${ts};reply-parent-msg-id=${this.id} PRIVMSG #${this.channel.login} :/ ${message}`
-                        : `@sent-ts=${ts} PRIVMSG #${this.channel.login} :/ ${message}`
+                    `${reply ? `@reply-parent-msg-id=${this.id} ` : ""}PRIVMSG #${this.channel.login} :/ ${message}`
                 )
             } catch (err) {
                 console.error(`error while sending reply message in "${this.channel.login}"`, err);
