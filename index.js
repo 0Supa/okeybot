@@ -123,7 +123,6 @@ client.issuedCommands = 0
 
 client.on("PRIVMSG", async (msg) => {
     const received = performance.now()
-    const ts = Date.now()
     const channelData = await utils.getChannel(msg.channelID)
 
     const msgData = {
