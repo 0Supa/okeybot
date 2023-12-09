@@ -48,6 +48,10 @@
         "gelbooru": {
             "api_key": "",
             "user_id": ""
+        },
+        "cloudflare": {
+            "account": "",
+            "key": ""
         }
     },
     "website": {
